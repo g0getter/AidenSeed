@@ -6,5 +6,8 @@ target 'AidenSeed' do
   use_frameworks!
 
   # Pods for AidenSeed
-
+  pod 'SnapKit'
+  pod 'ReactorKit'
+  pod 'RxSwift'
+  pod 'Moya'
 end
