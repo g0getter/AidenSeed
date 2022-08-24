@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */; };
 		DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10328B5AF5600588C97 /* AppDelegate.swift */; };
 		DFA2A10628B5AF5600588C97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */; };
 		DFA2A10828B5AF5600588C97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10728B5AF5600588C97 /* ViewController.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AidenSeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.release.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.release.xcconfig"; sourceTree = "<group>"; };
+		DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.debug.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.debug.xcconfig"; sourceTree = "<group>"; };
 		DFA2A10028B5AF5600588C97 /* AidenSeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AidenSeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA2A10328B5AF5600588C97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		621C645D07F66C453A234264 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */,
+				8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D5BBDE2DE3E81EBCEA296032 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DFA2A0F728B5AF5600588C97 = {
 			isa = PBXGroup;
 			children = (
 				DFA2A10228B5AF5600588C97 /* AidenSeed */,
 				DFA2A10128B5AF5600588C97 /* Products */,
+				621C645D07F66C453A234264 /* Pods */,
+				D5BBDE2DE3E81EBCEA296032 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +98,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DFA2A11428B5AF5800588C97 /* Build configuration list for PBXNativeTarget "AidenSeed" */;
 			buildPhases = (
+				3B83F77F33B658878B9DE023 /* [CP] Check Pods Manifest.lock */,
 				DFA2A0FC28B5AF5600588C97 /* Sources */,
 				DFA2A0FD28B5AF5600588C97 /* Frameworks */,
 				DFA2A0FE28B5AF5600588C97 /* Resources */,
@@ -132,6 +157,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B83F77F33B658878B9DE023 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AidenSeed-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DFA2A0FC28B5AF5600588C97 /* Sources */ = {
@@ -282,6 +332,7 @@
 		};
 		DFA2A11528B5AF5800588C97 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +361,7 @@
 		};
 		DFA2A11628B5AF5800588C97 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
