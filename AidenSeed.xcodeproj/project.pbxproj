@@ -59,6 +59,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DF60BEC728B5BC9C00158998 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF60BEC828B5BCA800158998 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DF60BECA28B5D65200158998 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		DFA2A0F728B5AF5600588C97 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +101,9 @@
 		DFA2A10228B5AF5600588C97 /* AidenSeed */ = {
 			isa = PBXGroup;
 			children = (
+				DF60BECA28B5D65200158998 /* ViewControllers */,
+				DF60BEC828B5BCA800158998 /* Views */,
+				DF60BEC728B5BC9C00158998 /* Models */,
 				DFA2A10328B5AF5600588C97 /* AppDelegate.swift */,
 				DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */,
 				DFA2A10728B5AF5600588C97 /* ViewController.swift */,
@@ -102,6 +126,7 @@
 				DFA2A0FC28B5AF5600588C97 /* Sources */,
 				DFA2A0FD28B5AF5600588C97 /* Frameworks */,
 				DFA2A0FE28B5AF5600588C97 /* Resources */,
+				522D709B52DE21365182783F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,6 +204,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		522D709B52DE21365182783F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AidenSeed/Pods-AidenSeed-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AidenSeed/Pods-AidenSeed-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AidenSeed/Pods-AidenSeed-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
