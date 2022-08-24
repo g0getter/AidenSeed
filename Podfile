@@ -9,5 +9,8 @@ target 'AidenSeed' do
   pod 'SnapKit'
   pod 'ReactorKit'
   pod 'RxSwift'
+  pod 'RxCocoa' # button.rx.tap을 위해
   pod 'Moya'
+  pod 'lottie-ios'
+  pod 'Then'
 end

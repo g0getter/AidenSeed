@@ -8,10 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */; };
+		DF60BECD28B5DCF100158998 /* flying-rocket-in-the-sky.json in Resources */ = {isa = PBXBuildFile; fileRef = DF60BECC28B5DCF100158998 /* flying-rocket-in-the-sky.json */; };
+		DF60BED328B5DEA900158998 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BED228B5DEA900158998 /* LaunchViewController.swift */; };
+		DF60BED528B5F1E200158998 /* LaunchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF60BED428B5F1E200158998 /* LaunchViewController.storyboard */; };
+		DF60BED728B5F57000158998 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF60BED628B5F57000158998 /* Home.storyboard */; };
+		DF60BED928B5F59500158998 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BED828B5F59500158998 /* HomeViewController.swift */; };
+		DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEDA28B5FEDA00158998 /* HomeViewReactor.swift */; };
+		DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEDC28B6094200158998 /* SearchUserViewController.swift */; };
+		DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */; };
+		DF60BEE128B61A6300158998 /* SearchUserViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */; };
 		DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10328B5AF5600588C97 /* AppDelegate.swift */; };
-		DFA2A10628B5AF5600588C97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */; };
 		DFA2A10828B5AF5600588C97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10728B5AF5600588C97 /* ViewController.swift */; };
-		DFA2A10B28B5AF5600588C97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10928B5AF5600588C97 /* Main.storyboard */; };
 		DFA2A10D28B5AF5800588C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10C28B5AF5800588C97 /* Assets.xcassets */; };
 		DFA2A11028B5AF5800588C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,11 +27,18 @@
 		3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AidenSeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.release.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.release.xcconfig"; sourceTree = "<group>"; };
 		DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.debug.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.debug.xcconfig"; sourceTree = "<group>"; };
+		DF60BECC28B5DCF100158998 /* flying-rocket-in-the-sky.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "flying-rocket-in-the-sky.json"; sourceTree = "<group>"; };
+		DF60BED228B5DEA900158998 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		DF60BED428B5F1E200158998 /* LaunchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchViewController.storyboard; sourceTree = "<group>"; };
+		DF60BED628B5F57000158998 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		DF60BED828B5F59500158998 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DF60BEDA28B5FEDA00158998 /* HomeViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewReactor.swift; sourceTree = "<group>"; };
+		DF60BEDC28B6094200158998 /* SearchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
+		DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
+		DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewReactor.swift; sourceTree = "<group>"; };
 		DFA2A10028B5AF5600588C97 /* AidenSeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AidenSeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA2A10328B5AF5600588C97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DFA2A10728B5AF5600588C97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DFA2A10A28B5AF5600588C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DFA2A10C28B5AF5800588C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFA2A10F28B5AF5800588C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFA2A11128B5AF5800588C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +83,7 @@
 		DF60BEC828B5BCA800158998 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -76,8 +91,24 @@
 		DF60BECA28B5D65200158998 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				DF60BED228B5DEA900158998 /* LaunchViewController.swift */,
+				DF60BED428B5F1E200158998 /* LaunchViewController.storyboard */,
+				DF60BED628B5F57000158998 /* Home.storyboard */,
+				DF60BED828B5F59500158998 /* HomeViewController.swift */,
+				DF60BEDA28B5FEDA00158998 /* HomeViewReactor.swift */,
+				DF60BEDC28B6094200158998 /* SearchUserViewController.swift */,
+				DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */,
+				DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DF60BECB28B5DCC000158998 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				DF60BECC28B5DCF100158998 /* flying-rocket-in-the-sky.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		DFA2A0F728B5AF5600588C97 = {
@@ -101,15 +132,13 @@
 		DFA2A10228B5AF5600588C97 /* AidenSeed */ = {
 			isa = PBXGroup;
 			children = (
+				DF60BECB28B5DCC000158998 /* Lottie */,
 				DF60BECA28B5D65200158998 /* ViewControllers */,
 				DF60BEC828B5BCA800158998 /* Views */,
 				DF60BEC728B5BC9C00158998 /* Models */,
 				DFA2A10328B5AF5600588C97 /* AppDelegate.swift */,
-				DFA2A10528B5AF5600588C97 /* SceneDelegate.swift */,
 				DFA2A10728B5AF5600588C97 /* ViewController.swift */,
-				DFA2A10928B5AF5600588C97 /* Main.storyboard */,
 				DFA2A10C28B5AF5800588C97 /* Assets.xcassets */,
-				DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */,
 				DFA2A11128B5AF5800588C97 /* Info.plist */,
 			);
 			path = AidenSeed;
@@ -176,8 +205,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFA2A11028B5AF5800588C97 /* LaunchScreen.storyboard in Resources */,
+				DF60BED728B5F57000158998 /* Home.storyboard in Resources */,
+				DF60BECD28B5DCF100158998 /* flying-rocket-in-the-sky.json in Resources */,
 				DFA2A10D28B5AF5800588C97 /* Assets.xcassets in Resources */,
-				DFA2A10B28B5AF5600588C97 /* Main.storyboard in Resources */,
+				DF60BED528B5F1E200158998 /* LaunchViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,22 +262,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFA2A10828B5AF5600588C97 /* ViewController.swift in Sources */,
+				DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */,
+				DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */,
+				DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */,
+				DF60BED328B5DEA900158998 /* LaunchViewController.swift in Sources */,
 				DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */,
-				DFA2A10628B5AF5600588C97 /* SceneDelegate.swift in Sources */,
+				DF60BEE128B61A6300158998 /* SearchUserViewReactor.swift in Sources */,
+				DF60BED928B5F59500158998 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DFA2A10928B5AF5600588C97 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFA2A10A28B5AF5600588C97 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -385,7 +413,7 @@
 				INFOPLIST_FILE = AidenSeed/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Home;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -397,7 +425,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -414,7 +442,7 @@
 				INFOPLIST_FILE = AidenSeed/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = Home;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,7 +454,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

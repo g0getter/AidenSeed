@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.6.2)
+  - lottie-ios (3.4.0)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -7,33 +8,50 @@ PODS:
   - ReactorKit (3.2.0):
     - RxSwift (~> 6.0)
     - WeakMapTable (~> 1.1)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
   - SnapKit (5.6.0)
+  - Then (3.0.0)
   - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
+  - lottie-ios
   - Moya
   - ReactorKit
+  - RxCocoa
   - RxSwift
   - SnapKit
+  - Then
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - lottie-ios
     - Moya
     - ReactorKit
+    - RxCocoa
+    - RxRelay
     - RxSwift
     - SnapKit
+    - Then
     - WeakMapTable
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  lottie-ios: 69495122151a378fdc7d1bb4c5930347e37baf1f
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: a130ac37104c7f305eb48a5d9221a537bec18e1e
+PODFILE CHECKSUM: 183a52853a7581abfe98b2f9510ec5eefc7a546a
 
 COCOAPODS: 1.11.3
