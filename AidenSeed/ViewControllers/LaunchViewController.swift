@@ -24,8 +24,13 @@ class LaunchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            guard let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else { return }
+            homeVC.reactor = HomeViewReactor()
+            
+            self.navigationController?.viewControllers = [homeVC]
         }
     }
     
@@ -34,7 +39,7 @@ class LaunchViewController: UIViewController {
         animationView.play()
         animationView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.width.equalTo(300)
+            $0.width.equalToSuperview()
         }
     }
     
