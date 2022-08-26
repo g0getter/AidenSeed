@@ -90,7 +90,9 @@ extension HomeViewController {
         case .nothing:
             break
         case .searchUser:
-            vc = SearchUserViewController()
+            let searchUserVC = SearchUserViewController()
+            searchUserVC.reactor = SearchUserViewReactor()
+            vc = searchUserVC
         case .searchHistory:
             vc = SearchHistoryViewController()
         }
