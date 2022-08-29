@@ -64,11 +64,6 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-//    @obj
-//    private func keyboardWillShow(_ sender: Notification) {
-//
-//    }
-    
     private func setUI() {
         view.addSubview(safeAreaView)
         self.safeAreaView.snp.makeConstraints {
@@ -109,23 +104,39 @@ extension SearchUserViewController: View {
     }
     
     private func bindAction(_ reactor: SearchUserViewReactor) {
-        textField.rx.text.debounce(.seconds(1), scheduler: MainScheduler.instance)
+        textField.rx.text
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .map { .search($0) }
             .bind(to: reactor.action )
             .disposed(by: disposeBag)
-        
-        //        tableView.rx.item
+       
+        // FIXME: 아래 바인딩 삭제
+        textField.rx.text
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .bind(onNext: { userName in
+                reactor.searchUsers(userName)
+            }).disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {
+        // TODO: Reactor 이용해서 화면 업데이트하기. 현재는 사실상 사용하고 있지 않음.
         // table view cell 구성
-        reactor.state.map { $0.userNames }
+//        reactor.state.map { $0.userNames }
+//            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
+//                index, userName, cell in
+//                guard let cell = cell as? ResultCell else { return }
+//                cell.selectionStyle = .none
+//                cell.resultLabel.text = userName
+//            }.disposed(by: disposeBag)
+        
+        reactor.results
             .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
                 index, userName, cell in
                 guard let cell = cell as? ResultCell else { return }
                 cell.selectionStyle = .none
                 cell.resultLabel.text = userName
             }.disposed(by: disposeBag)
+        
         
     }
 }
