@@ -18,9 +18,12 @@
 		DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEDC28B6094200158998 /* SearchUserViewController.swift */; };
 		DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */; };
 		DF60BEE128B61A6300158998 /* SearchUserViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */; };
+		DF9650C728BC70B900EF7992 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9650C628BC70B900EF7992 /* String+Extensions.swift */; };
+		DF9650CB28BC858600EF7992 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9650CA28BC858600EF7992 /* UserInfo.swift */; };
 		DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10328B5AF5600588C97 /* AppDelegate.swift */; };
 		DFA2A10D28B5AF5800588C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10C28B5AF5800588C97 /* Assets.xcassets */; };
 		DFA2A11028B5AF5800588C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */; };
+		DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,11 +40,14 @@
 		DF60BEDC28B6094200158998 /* SearchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
 		DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewReactor.swift; sourceTree = "<group>"; };
+		DF9650C628BC70B900EF7992 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		DF9650CA28BC858600EF7992 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		DFA2A10028B5AF5600588C97 /* AidenSeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AidenSeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA2A10328B5AF5600588C97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DFA2A10C28B5AF5800588C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFA2A10F28B5AF5800588C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFA2A11128B5AF5800588C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,22 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		DF9650C528BC700A00EF7992 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DF9650C628BC70B900EF7992 /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DF9650C928BC804B00EF7992 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF9650CA28BC858600EF7992 /* UserInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DFA2A0F728B5AF5600588C97 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +155,8 @@
 		DFA2A10228B5AF5600588C97 /* AidenSeed */ = {
 			isa = PBXGroup;
 			children = (
+				DF9650C528BC700A00EF7992 /* Extensions */,
+				DFD9729D28BC3B28003DDBD4 /* API */,
 				DF60BECB28B5DCC000158998 /* Lottie */,
 				DF60BECA28B5D65200158998 /* ViewControllers */,
 				DF60BEC828B5BCA800158998 /* Views */,
@@ -142,6 +166,15 @@
 				DFA2A11128B5AF5800588C97 /* Info.plist */,
 			);
 			path = AidenSeed;
+			sourceTree = "<group>";
+		};
+		DFD9729D28BC3B28003DDBD4 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DF9650C928BC804B00EF7992 /* Models */,
+				DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,13 +294,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF9650C728BC70B900EF7992 /* String+Extensions.swift in Sources */,
 				DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */,
 				DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */,
 				DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */,
 				DF60BED328B5DEA900158998 /* LaunchViewController.swift in Sources */,
 				DF03365C28B7381E004EAA23 /* ResultCell.swift in Sources */,
+				DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */,
 				DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */,
 				DF60BEE128B61A6300158998 /* SearchUserViewReactor.swift in Sources */,
+				DF9650CB28BC858600EF7992 /* UserInfo.swift in Sources */,
 				DF60BED928B5F59500158998 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

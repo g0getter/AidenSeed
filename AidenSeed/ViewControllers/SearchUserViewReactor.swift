@@ -6,8 +6,16 @@
 //
 
 import ReactorKit
+import Moya
+import RxSwift
+import Then
+import RxRelay
 
 class SearchUserViewReactor: Reactor {
+    var gitHubProvider = MoyaProvider<GitHubProvider>()
+    
+    var results = PublishRelay<[String?]>()
+    
     enum Action {
         case search(String?)
     }
@@ -24,13 +32,24 @@ class SearchUserViewReactor: Reactor {
         switch action {
         case .search(let userName):
             var userNames = [""]
-            // TODO: API request, response
-            print("Result of \(userName ?? "")")
-            userNames = ["\(userName ?? "")1", "\(userName ?? "")2"]
-            userNames.append(contentsOf: userNames)
-            userNames.append(contentsOf: userNames)
-            userNames.append(contentsOf: userNames)
-            userNames.append(contentsOf: userNames)
+            
+            gitHubProvider.request(.getUsers(userName: userName)) { result in
+                switch result {
+                case let .success(result):
+                    guard let response = try? result.map(SearchUsersResponse.self) else { return }
+                    guard let items = response.items else { return }
+                    let responseUserNames = items.map{$0.login ?? ""}
+                    userNames = responseUserNames
+                    
+                    // TODO: Observable<Mutation> 리턴
+                    
+                case let .failure(result):
+                    print("Error occurred!:\n\(result)")
+                    print(result.failureReason ?? "")
+                }
+                
+            }
+            
             return Observable.just(.searchUserNames(userNames))
         }
     }
@@ -48,3 +67,24 @@ class SearchUserViewReactor: Reactor {
     var initialState: State = State()
 }
 
+extension SearchUserViewReactor {
+    func searchUsers(_ userName: String?) {
+        var userNames = [""]
+        
+        gitHubProvider.request(.getUsers(userName: userName)) { result in
+            switch result {
+            case let .success(result):
+                guard let response = try? result.map(SearchUsersResponse.self) else { return }
+                guard let items = response.items else { return }
+                let responseUserNames = items.map{ $0.login ?? "" }
+                userNames = responseUserNames
+
+                self.results.accept(userNames)
+                
+            case let .failure(result):
+                print("Error occurred!:\n\(result)")
+                print(result.failureReason ?? "")
+            }
+        }
+    }
+}
