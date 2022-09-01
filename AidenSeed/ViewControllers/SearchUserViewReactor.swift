@@ -68,10 +68,10 @@ class SearchUserViewReactor: Reactor {
 }
 
 extension SearchUserViewReactor {
-    func searchUsers(_ userName: String?) {
+    func searchUsers(_ userName: String?, createdBefore: String? = nil) {
         var userNames = [""]
         
-        gitHubProvider.request(.getUsers(userName: userName)) { result in
+        gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore)) { result in
             switch result {
             case let .success(result):
                 guard let response = try? result.map(SearchUsersResponse.self) else { return }

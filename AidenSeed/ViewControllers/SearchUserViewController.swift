@@ -21,6 +21,19 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
         $0.backgroundColor = .yellow
     }
     
+    // TODO: 필터링뷰 어떻게 구성할지 알아본 후 수정
+    var filterView = UIView()
+    
+    var filteringCreatedLabel = UILabel().then {
+        $0.text = "Created before"
+    }
+
+    var datePicker = UIDatePicker().then {
+        $0.datePickerMode = .date
+        $0.locale = Locale(identifier: "ko-KR")
+//        $0.preferredDatePickerStyle = .automatic
+    }
+    
     var tableView = UITableView().then {
         $0.separatorStyle = .none
         $0.backgroundColor = .gray.withAlphaComponent(0.1)
@@ -82,14 +95,44 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
+        filterView.do { filterView in
+            safeAreaView.addSubview(filterView)
+            
+            filterView.snp.makeConstraints {
+                $0.leading.trailing.equalTo(textField)
+                $0.top.equalTo(textField.snp.bottom).offset(5)
+                $0.height.equalTo(40)
+            }
+            
+            filteringCreatedLabel.do { label in
+                filterView.addSubview(label)
+                
+                label.snp.makeConstraints {
+                    $0.leading.equalToSuperview()
+                    $0.centerY.equalToSuperview()
+                    $0.width.equalTo(label.intrinsicContentSize)
+                }
+            }
+            
+            datePicker.do { datePicker in
+                filterView.addSubview(datePicker)
+                
+                datePicker.snp.makeConstraints {
+                    $0.centerY.equalToSuperview()
+                    $0.leading.equalTo(self.filteringCreatedLabel.snp.trailing).offset(5)
+                }
+            }
+        }
+        
         tableView.do { tableView in
             safeAreaView.addSubview(tableView)
             tableView.snp.makeConstraints {
-                $0.top.equalTo(textField.snp.bottom).offset(10)
+                $0.top.equalTo(filterView.snp.bottom).offset(10)
                 $0.leading.trailing.equalToSuperview()
                 $0.bottom.equalToSuperview()
             }
         }
+        
     }
     
     private func setTableView() {
@@ -114,7 +157,14 @@ extension SearchUserViewController: View {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .bind(onNext: { userName in
+                
                 reactor.searchUsers(userName)
+            }).disposed(by: disposeBag)
+        
+        datePicker.rx.value.changed.asObservable()
+            .subscribe({ event in
+                guard let date = event.element else { return }
+                self.reactor?.searchUsers(self.textField.text, createdBefore: date.toString())
             }).disposed(by: disposeBag)
     }
     
