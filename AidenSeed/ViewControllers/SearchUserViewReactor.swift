@@ -78,6 +78,8 @@ extension SearchUserViewReactor {
                 guard let items = response.items else { return }
                 let responseUserNames = items.map{ $0.login ?? "" }
                 userNames = responseUserNames
+                
+                userNames.sort(by: >) // sort descending
 
                 self.results.accept(userNames)
                 
