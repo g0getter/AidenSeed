@@ -8,7 +8,7 @@
 import Moya
 
 enum GitHubProvider {
-    case getUsers(userName: String?)
+    case getUsers(userName: String?, createdBefore: String? = nil)
 //    case getAUserInfo
 }
 
@@ -34,13 +34,22 @@ extension GitHubProvider: TargetType {
     
     var task: Task {
         switch self {
-        case .getUsers(let userName):
+        case .getUsers(let userName, let createdBefore):
             var searchKeyword = "\"\""
             let numberPerPage = 20
 //            TODO: var pageNumber(출력할 페이지 넘버)
             if let userName = userName, userName.isEmpty == false {
                 searchKeyword = userName
             }
+            if let createdBefore = createdBefore {
+                let createdBeforeQuery = "created:<\(createdBefore)"
+                if searchKeyword == "\"\"" {
+                    searchKeyword = createdBeforeQuery
+                } else {
+                    searchKeyword = "\(searchKeyword) \(createdBeforeQuery)"
+                }
+            }
+            
             let params: [String : Any] = ["q": searchKeyword,
                                           "per_page": numberPerPage]
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

@@ -23,6 +23,7 @@
 		DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA2A10328B5AF5600588C97 /* AppDelegate.swift */; };
 		DFA2A10D28B5AF5800588C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10C28B5AF5800588C97 /* Assets.xcassets */; };
 		DFA2A11028B5AF5800588C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */; };
+		DFA9E81A28C04716003912E7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA9E81928C04716003912E7 /* Date+Extensions.swift */; };
 		DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		DFA2A10C28B5AF5800588C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DFA2A10F28B5AF5800588C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFA2A11128B5AF5800588C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFA9E81928C04716003912E7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				DF9650C628BC70B900EF7992 /* String+Extensions.swift */,
+				DFA9E81928C04716003912E7 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */,
 				DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */,
 				DF60BED328B5DEA900158998 /* LaunchViewController.swift in Sources */,
+				DFA9E81A28C04716003912E7 /* Date+Extensions.swift in Sources */,
 				DF03365C28B7381E004EAA23 /* ResultCell.swift in Sources */,
 				DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */,
 				DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */,
