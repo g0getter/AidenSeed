@@ -9,7 +9,7 @@ import Moya
 
 enum GitHubProvider {
     case getUsers(userName: String?, createdBefore: String? = nil)
-//    case getAUserInfo
+    case getAUserInfo(userName: String)
 }
 
 extension GitHubProvider: TargetType {
@@ -21,13 +21,14 @@ extension GitHubProvider: TargetType {
         switch self {
         case .getUsers:
             return "/search/users"
-            
+        case .getAUserInfo(let userName):
+            return "/users/\(userName)"
         }
     }
     
     var method: Method {
         switch self {
-        case .getUsers:
+        case .getUsers, .getAUserInfo:
             return .get
         }
     }
@@ -54,6 +55,9 @@ extension GitHubProvider: TargetType {
                                           "per_page": numberPerPage]
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             // TODO: encoding: URLEncoding.queryString or JSONEncoding.default
+        case .getAUserInfo:
+            return .requestPlain
+
         }
     }
     

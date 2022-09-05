@@ -166,6 +166,23 @@ extension SearchUserViewController: View {
                 guard let date = event.element else { return }
                 self.reactor?.searchUsers(self.textField.text, createdBefore: date.toString())
             }).disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? ResultCell else { return }
+                guard let userInfoVC = UIStoryboard(name: "UserInfoViewController", bundle: nil).instantiateViewController(withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+                
+                userInfoVC.userName = cell.resultLabel.text
+                userInfoVC.reactor = UserInfoViewReactor()
+                
+                self.navigationController?.pushViewController(userInfoVC, animated: true)
+                
+                
+//                userInfoVC.userName = resultCell.resultLabel.text
+//                self.navigationController?.pushViewController(userInfoVC, animated: true)
+//                cell.
+            }).disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {
@@ -185,6 +202,8 @@ extension SearchUserViewController: View {
                 guard let cell = cell as? ResultCell else { return }
                 cell.selectionStyle = .none
                 cell.resultLabel.text = userName
+                
+                
             }.disposed(by: disposeBag)
         
         
