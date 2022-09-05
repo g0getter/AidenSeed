@@ -72,6 +72,7 @@ extension SearchUserViewReactor {
         var userNames = [""]
         
         gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore)) { result in
+            // TODO: case let
             switch result {
             case let .success(result):
                 guard let response = try? result.map(SearchUsersResponse.self) else { return }
@@ -89,4 +90,5 @@ extension SearchUserViewReactor {
             }
         }
     }
+    
 }

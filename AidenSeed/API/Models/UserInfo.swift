@@ -33,6 +33,7 @@ struct UserInfo: Codable {
     let score: Int?
     let followingURL, gistsURL, starredURL, eventsURL: String?
     let siteAdmin: Bool?
+    let name, blog, bio: String?
 
     enum CodingKeys: String, CodingKey {
         case login, id
@@ -52,5 +53,8 @@ struct UserInfo: Codable {
         case starredURL = "starred_url"
         case eventsURL = "events_url"
         case siteAdmin = "site_admin"
+        case name = "name"
+        case blog = "blog"
+        case bio = "bio"
     }
 }

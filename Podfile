@@ -13,4 +13,5 @@ target 'AidenSeed' do
   pod 'Moya'
   pod 'lottie-ios'
   pod 'Then'
+  pod 'Kingfisher'
 end
