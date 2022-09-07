@@ -22,7 +22,7 @@ class SearchHistoryViewReactor: Reactor {
         var history: [History?]?
     }
     
-    var initialState = State(history: nil)
+    var initialState = State(history: [History(cellType: .imageLeft, userName: "Aiden", userImageName: "fakeImage")])
     
 }
 

@@ -9,6 +9,8 @@ import UIKit
 
 class SearchHistoryImageRightCell: UITableViewCell {
 
+    static let identifier = "searchHistoryImageRightCell"
+    
     /// Username
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -17,6 +19,9 @@ class SearchHistoryImageRightCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.backgroundColor = .orange.withAlphaComponent(0.2)
+        // ReuseIdentifier, XIB의 identifier 지정하지 않아도 잘 register 됨.
+//        self.reuseIdentifier = SearchHistoryImageRightCell.identifier
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

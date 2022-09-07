@@ -9,7 +9,7 @@ import UIKit
 
 class SearchHistoryImageLeftCell: UITableViewCell {
 
-//    static let identifier = "searchHistoryImageLeftCell"
+    static let identifier = "searchHistoryImageLeftCell"
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -17,9 +17,8 @@ class SearchHistoryImageLeftCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.reuseIdentifier = "searchHistoryImageLeftCell"
-        
-        
+        self.contentView.backgroundColor = .yellow.withAlphaComponent(0.2)
+        self.backgroundColor = .clear
         
     }
 
