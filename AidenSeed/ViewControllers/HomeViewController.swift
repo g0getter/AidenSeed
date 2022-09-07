@@ -75,7 +75,7 @@ extension HomeViewController {
         
         // State
         reactor.state.map { $0.pressedButton }
-            .distinctUntilChanged()
+//            .distinctUntilChanged() // 동일한 버튼 눌러도 이동하도록 distinct 제거 필요
             .bind(onNext: { [weak self] button in
                 guard let self = self else { return }
                 self.view.backgroundColor = button.backgroundColor
@@ -94,7 +94,9 @@ extension HomeViewController {
             searchUserVC.reactor = SearchUserViewReactor()
             vc = searchUserVC
         case .searchHistory:
-            vc = SearchHistoryViewController()
+            let searchHistoryVC = SearchHistoryViewController()
+            searchHistoryVC.reactor = SearchHistoryViewReactor()
+            vc = searchHistoryVC
         }
         
         guard let vc = vc else { return }

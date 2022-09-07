@@ -26,6 +26,11 @@
 		DFA9E81A28C04716003912E7 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA9E81928C04716003912E7 /* Date+Extensions.swift */; };
 		DFA9E81C28C092F1003912E7 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA9E81B28C092F1003912E7 /* UserInfoViewController.swift */; };
 		DFA9E81E28C09314003912E7 /* UserInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA9E81D28C09314003912E7 /* UserInfoViewController.storyboard */; };
+		DFAD211928C6C62E00F06001 /* SearchHistoryImageLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAD211728C6C62D00F06001 /* SearchHistoryImageLeftCell.swift */; };
+		DFAD211A28C6C62E00F06001 /* SearchHistoryImageLeftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFAD211828C6C62E00F06001 /* SearchHistoryImageLeftCell.xib */; };
+		DFAD211C28C6C88000F06001 /* SearchHistoryViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAD211B28C6C88000F06001 /* SearchHistoryViewReactor.swift */; };
+		DFAD211F28C6CA8800F06001 /* SearchHistoryImageRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAD211D28C6CA8800F06001 /* SearchHistoryImageRightCell.swift */; };
+		DFAD212028C6CA8800F06001 /* SearchHistoryImageRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFAD211E28C6CA8800F06001 /* SearchHistoryImageRightCell.xib */; };
 		DFB77C8728C17E44004826F5 /* UserInfoViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB77C8628C17E44004826F5 /* UserInfoViewReactor.swift */; };
 		DFB807D428C5D1200098E600 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB807D328C5D1200098E600 /* WebViewController.swift */; };
 		DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */; };
@@ -55,6 +60,11 @@
 		DFA9E81928C04716003912E7 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		DFA9E81B28C092F1003912E7 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		DFA9E81D28C09314003912E7 /* UserInfoViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserInfoViewController.storyboard; sourceTree = "<group>"; };
+		DFAD211728C6C62D00F06001 /* SearchHistoryImageLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryImageLeftCell.swift; sourceTree = "<group>"; };
+		DFAD211828C6C62E00F06001 /* SearchHistoryImageLeftCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryImageLeftCell.xib; sourceTree = "<group>"; };
+		DFAD211B28C6C88000F06001 /* SearchHistoryViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewReactor.swift; sourceTree = "<group>"; };
+		DFAD211D28C6CA8800F06001 /* SearchHistoryImageRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryImageRightCell.swift; sourceTree = "<group>"; };
+		DFAD211E28C6CA8800F06001 /* SearchHistoryImageRightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryImageRightCell.xib; sourceTree = "<group>"; };
 		DFB77C8628C17E44004826F5 /* UserInfoViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewReactor.swift; sourceTree = "<group>"; };
 		DFB807D328C5D1200098E600 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubProvider.swift; sourceTree = "<group>"; };
@@ -101,6 +111,10 @@
 			children = (
 				DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */,
 				DF03365B28B7381E004EAA23 /* ResultCell.swift */,
+				DFAD211728C6C62D00F06001 /* SearchHistoryImageLeftCell.swift */,
+				DFAD211828C6C62E00F06001 /* SearchHistoryImageLeftCell.xib */,
+				DFAD211D28C6CA8800F06001 /* SearchHistoryImageRightCell.swift */,
+				DFAD211E28C6CA8800F06001 /* SearchHistoryImageRightCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,6 +134,7 @@
 				DFA9E81D28C09314003912E7 /* UserInfoViewController.storyboard */,
 				DFB77C8628C17E44004826F5 /* UserInfoViewReactor.swift */,
 				DFB807D328C5D1200098E600 /* WebViewController.swift */,
+				DFAD211B28C6C88000F06001 /* SearchHistoryViewReactor.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -252,6 +267,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFAD211A28C6C62E00F06001 /* SearchHistoryImageLeftCell.xib in Resources */,
+				DFAD212028C6CA8800F06001 /* SearchHistoryImageRightCell.xib in Resources */,
 				DFA9E81E28C09314003912E7 /* UserInfoViewController.storyboard in Resources */,
 				DFA2A11028B5AF5800588C97 /* LaunchScreen.storyboard in Resources */,
 				DF60BED728B5F57000158998 /* Home.storyboard in Resources */,
@@ -314,17 +331,20 @@
 				DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */,
 				DFB77C8728C17E44004826F5 /* UserInfoViewReactor.swift in Sources */,
 				DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */,
+				DFAD211C28C6C88000F06001 /* SearchHistoryViewReactor.swift in Sources */,
 				DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */,
 				DF60BED328B5DEA900158998 /* LaunchViewController.swift in Sources */,
 				DFA9E81A28C04716003912E7 /* Date+Extensions.swift in Sources */,
 				DFA9E81C28C092F1003912E7 /* UserInfoViewController.swift in Sources */,
 				DF03365C28B7381E004EAA23 /* ResultCell.swift in Sources */,
 				DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */,
+				DFAD211928C6C62E00F06001 /* SearchHistoryImageLeftCell.swift in Sources */,
 				DFA2A10428B5AF5600588C97 /* AppDelegate.swift in Sources */,
 				DF60BEE128B61A6300158998 /* SearchUserViewReactor.swift in Sources */,
 				DF9650CB28BC858600EF7992 /* UserInfo.swift in Sources */,
 				DFB807D428C5D1200098E600 /* WebViewController.swift in Sources */,
 				DF60BED928B5F59500158998 /* HomeViewController.swift in Sources */,
+				DFAD211F28C6CA8800F06001 /* SearchHistoryImageRightCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
