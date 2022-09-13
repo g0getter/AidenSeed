@@ -86,7 +86,7 @@ class SearchHistoryViewController: UIViewController, View {
     // TODO: Reactor로 옮기기
     private func retrieveHistory() {
         guard let realm = realm else { return }
-        let history = realm.objects(UserInfoTest.self)
+        let history = realm.objects(UserInfo.self)
         
         Observable.just(history).bind(to: tableView.rx.items) { (tableView, index, userInfo) -> UITableViewCell in
             

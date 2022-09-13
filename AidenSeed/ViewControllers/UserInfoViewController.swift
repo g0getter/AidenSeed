@@ -18,7 +18,7 @@ class UserInfoViewController: UIViewController {
     @IBOutlet weak var bioView: UITextView!
     @IBOutlet weak var blogView: UITextView!
     
-    var userInfo: UserInfoTest?
+    var userInfo: UserInfo?
 
     override func viewDidLoad() {
         super.viewDidLoad()
