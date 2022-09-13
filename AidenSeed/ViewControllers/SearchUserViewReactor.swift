@@ -70,7 +70,6 @@ class SearchUserViewReactor: Reactor {
 
 extension SearchUserViewReactor {
     func searchUsers(_ userName: String?, createdBefore: String? = nil) {
-        var userNames = [""]
         
         gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore)) { result in
             // TODO: case let
@@ -81,7 +80,7 @@ extension SearchUserViewReactor {
 
                 var sortedItems = items
                 sortedItems.sort { (a, b) in
-                    return a.login ?? "" > b.login ?? ""
+                    return a.login ?? "" < b.login ?? ""
                 }
                 
                 self.results.accept(sortedItems)
