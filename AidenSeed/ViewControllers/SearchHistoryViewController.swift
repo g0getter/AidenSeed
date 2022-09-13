@@ -26,6 +26,10 @@ class SearchHistoryViewController: UIViewController, View {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -42,89 +46,95 @@ class SearchHistoryViewController: UIViewController, View {
     }
     
     private func setTableView() {
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        // Pull to refresh 구현
+        tableView.refreshControl = UIRefreshControl().then {
+            $0.rx.controlEvent(.valueChanged)
+                .bind(onNext: { [weak self] _ in
+                    guard let self = self else { return }
+                    print("refresh!!")
+                    
+                    self.reactor?.action.onNext(Reactor.Action.refresh)
+                    
+                }).disposed(by: disposeBag)
+        }
+        
+        
     }
     
     func bind(reactor: SearchHistoryViewReactor) {
-        self.bindAction()
-        self.bindState()
+        self.bindAction(reactor)
+        self.bindState(reactor)
         
-        self.retrieveHistory()
+        // TODO: 아래 호출 위치 - viewWillAppear 혹은 bind()
+        // TODO: refresh 대신 처음 호출하는 action 추가해야 하는지?
+        reactor.action.onNext(Reactor.Action.refresh)
+//        self.reactor?.action.onNext(Reactor.Action.refresh)
         
     }
     
-    private func bindAction() {
+    private func bindAction(_ reactor: SearchHistoryViewReactor) {
         
         // TODO: model이 왜 SearchHistoryImageCell이 아니라 UserInfo인가?
-        tableView.rx.modelSelected(UserInfo.self)
-            .subscribe(onNext: { userInfo in
+        // TODO: model이 왜 UserInfo가 아니라 History인가?
+        tableView.rx.modelSelected(History.self)
+            .subscribe(onNext: { history in
                 guard let userInfoVC = UIStoryboard(name: "UserInfoViewController", bundle: nil).instantiateViewController(withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+                
                 // cell의 userInfo 전달
-                userInfoVC.userInfo = userInfo
+                userInfoVC.userInfo = history.userInfo
                 userInfoVC.reactor = UserInfoViewReactor(navigateFromSearchUser: false)
                 
                 self.navigationController?.pushViewController(userInfoVC, animated: true)
             }).disposed(by: disposeBag)
-        
-               
     }
     
-    private func bindState() {
-        guard let reactor = reactor else { return }
+    // TODO: Q: 파라미터 reactor와 self.reactor의 관계
+    private func bindState(_ reactor: SearchHistoryViewReactor) {
         
-//        reactor.state.map{ $0.history }
-//            .bind(onNext: { history in
-//
-//            }).disposed(by: disposeBag)
+        reactor.state.map { $0.isLoading }
+            .bind(onNext: { [weak self] isLoading in
+                guard let self = self else { return }
+                
+                self.tableView.refreshControl?.rx.isRefreshing.onNext(isLoading)
+            }).disposed(by: disposeBag)
         
         // 🔐 TODO: bind(to:) 완벽히 이해
-//        reactor.state.map{ $0.history ?? [] }
-//            .bind(to: tableView.rx.items) { (tableView, index, item) -> UITableViewCell in
-////                switch item
-//                let cell = SearchHistoryImageLeftCell()
-//                cell.userNameLabel.text = item?.userName
-//                cell.userImageView.image = UIImage(named: item?.userImageName ?? "")
-//                return cell
-//
-//            }.disposed(by: disposeBag)
+        reactor.state.map{ $0.history ?? [] }
+            .bind(to: tableView.rx.items) { (tableView, index, history) -> UITableViewCell in
+
+                var cell: SearchHistoryImageCell?
+                
+                guard let history = history else { return UITableViewCell() }
+                guard let name = history.userInfo?.name else { return UITableViewCell() }
+                guard let cellType = history.cellType else { return UITableViewCell() }
+
+                switch cellType {
+                case .imageLeft:
+                    cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageLeftCell") as? SearchHistoryImageLeftCell
+                case .imageRight:
+                    cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageRightCell") as?
+                    SearchHistoryImageRightCell
+                }
+                
+                guard let cell = cell else { return UITableViewCell() }
+                
+                cell.userInfo = history.userInfo
+                
+                cell.userNameLabel.text = name
+                let url = history.userInfo?.avatarURL?.url ?? URL(string: "")
+                cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
+                cell.selectionStyle = .none
+                
+                return cell
+
+            }.disposed(by: disposeBag)
         
     }
-    
-    // TODO: Reactor로 옮기기
-    private func retrieveHistory() {
-        guard let realm = realm else { return }
-        let history = realm.objects(UserInfo.self)
-        
-        Observable.just(history).bind(to: tableView.rx.items) { (tableView, index, userInfo) -> UITableViewCell in
-            
-            var cell: SearchHistoryImageCell?
-            
-            guard let name = userInfo.name else { return UITableViewCell() }
-            if name < "N" {
-                cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageRightCell") as? SearchHistoryImageRightCell
-            } else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageLeftCell") as? SearchHistoryImageLeftCell
-            }
-            
-            guard let cell = cell else { return UITableViewCell() }
-            
-            cell.userInfo = userInfo
-            
-            cell.userNameLabel.text = name
-            let url = userInfo.avatarURL?.url ?? URL(string: "")
-            cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
-            cell.selectionStyle = .none
-            
-            return cell
-
-        }.disposed(by: disposeBag)
-    }
-    
-    
-
-
 }
