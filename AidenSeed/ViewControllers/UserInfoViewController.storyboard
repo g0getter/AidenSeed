@@ -64,7 +64,7 @@
                         <outlet property="bioView" destination="bmL-Vr-R5X" id="5YY-aO-rfm"/>
                         <outlet property="blogView" destination="LnI-9U-HIQ" id="4rf-Bc-kmU"/>
                         <outlet property="userImage" destination="sB0-3U-jKF" id="Ebd-ly-FA4"/>
-                        <outlet property="userInfo" destination="KOA-nU-j5e" id="0ci-xf-557"/>
+                        <outlet property="userInfoLabel" destination="KOA-nU-j5e" id="7tr-fJ-nfR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

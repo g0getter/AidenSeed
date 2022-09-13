@@ -9,6 +9,7 @@ import UIKit
 import ReactorKit
 import RxSwift
 import SnapKit
+import RealmSwift
 
 class SearchHistoryViewController: UIViewController, View {
     
@@ -82,29 +83,25 @@ class SearchHistoryViewController: UIViewController, View {
         
     }
     
+    // TODO: Reactor로 옮기기
     private func retrieveHistory() {
+        guard let realm = realm else { return }
+        let history = realm.objects(UserInfoTest.self)
         
-        let userInfo = [
-            UserInfo(login: nil, id: nil, nodeID: nil, avatarURL: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cute-cat-photos-1593441022.jpg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*", gravatarID: nil, url: nil, htmlURL: nil, followersURL: nil, subscriptionsURL: nil, organizationsURL: nil, reposURL: nil, receivedEventsURL: nil, type: nil, score: nil, followingURL: nil, gistsURL: nil, starredURL: nil, eventsURL: nil, siteAdmin: nil, name: "Aiden", blog: nil, bio: nil),
-            UserInfo(login: nil, id: nil, nodeID: nil, avatarURL: "https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg", gravatarID: nil, url: nil, htmlURL: nil, followersURL: nil, subscriptionsURL: nil, organizationsURL: nil, reposURL: nil, receivedEventsURL: nil, type: nil, score: nil, followingURL: nil, gistsURL: nil, starredURL: nil, eventsURL: nil, siteAdmin: nil, name: "Ziden", blog: nil, bio: nil)
-        ]
-        
-        let observable = Observable.of(userInfo)
-        
-        observable.bind(to: tableView.rx.items) { (tableView, index, userInfo) -> UITableViewCell in
+        Observable.just(history).bind(to: tableView.rx.items) { (tableView, index, userInfo) -> UITableViewCell in
             
-            guard let name = userInfo.name, let avatarURL = userInfo.avatarURL else { return UITableViewCell() }
+            guard let name = userInfo.name else { return UITableViewCell() }
             if name < "N" {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageRightCell") as? SearchHistoryImageRightCell {
                     cell.userNameLabel.text = name
-                    let url = avatarURL.url ?? URL(string: "")
+                    let url = userInfo.avatarURL?.url ?? URL(string: "")
                     cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
                     return cell
                 }
             } else {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageLeftCell") as? SearchHistoryImageLeftCell {
                     cell.userNameLabel.text = name
-                    let url = avatarURL.url ?? URL(string: "")
+                    let url = userInfo.avatarURL?.url ?? URL(string: "")
                     cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
                     return cell
                 }

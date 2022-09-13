@@ -8,6 +8,10 @@
 import UIKit
 import RxSwift
 import ReactorKit
+import RealmSwift
+
+///
+let realm = try? Realm() // 여기서 끝.
 
 final class SearchUserViewController: UIViewController, UITextFieldDelegate {
 
@@ -41,6 +45,7 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
         
         $0.register(ResultCell.self, forCellReuseIdentifier: ResultCell.identifier)
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,16 +177,12 @@ extension SearchUserViewController: View {
                 guard let self = self else { return }
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? ResultCell else { return }
                 guard let userInfoVC = UIStoryboard(name: "UserInfoViewController", bundle: nil).instantiateViewController(withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
-                
-                userInfoVC.userName = cell.resultLabel.text
-                userInfoVC.reactor = UserInfoViewReactor()
+                // cell의 userInfo 전달
+                userInfoVC.userInfo = cell.userInfoTest
+                userInfoVC.reactor = UserInfoViewReactor(navigateFromSearchUser: true)
                 
                 self.navigationController?.pushViewController(userInfoVC, animated: true)
                 
-                
-//                userInfoVC.userName = resultCell.resultLabel.text
-//                self.navigationController?.pushViewController(userInfoVC, animated: true)
-//                cell.
             }).disposed(by: disposeBag)
     }
     
@@ -198,11 +199,12 @@ extension SearchUserViewController: View {
         
         reactor.results
             .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
-                index, userName, cell in
+                index, userInfoTest, cell in
                 guard let cell = cell as? ResultCell else { return }
                 cell.selectionStyle = .none
-                cell.resultLabel.text = userName
+                cell.resultLabel.text = userInfoTest?.login // TODO: 가능하다면 삭제
                 
+                cell.userInfoTest = userInfoTest
                 
             }.disposed(by: disposeBag)
         

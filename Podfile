@@ -14,4 +14,5 @@ target 'AidenSeed' do
   pod 'lottie-ios'
   pod 'Then'
   pod 'Kingfisher'
+  pod 'RealmSwift'
 end

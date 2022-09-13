@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Welcome
 struct SearchUsersResponse: Codable {
@@ -17,6 +18,35 @@ struct SearchUsersResponse: Codable {
         case totalCount = "total_count"
         case incompleteResults = "incomplete_results"
         case items
+    }
+}
+
+struct SearchUsersResponseTest: Codable {
+    let totalCount: Int?
+    let incompleteResults: Bool?
+    let items: [UserInfoTest]?
+
+    enum CodingKeys: String, CodingKey {
+        case totalCount = "total_count"
+        case incompleteResults = "incomplete_results"
+        case items
+    }
+}
+
+class UserInfoTest: Object, Codable {
+    @Persisted(primaryKey: true) var id: Int?
+    @Persisted var login: String?
+    @Persisted var avatarURL: String?
+    @Persisted var name: String?
+    @Persisted var blog: String?
+    @Persisted var bio: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case login, id
+        case avatarURL = "avatar_url"
+        case name = "name"
+        case blog = "blog"
+        case bio = "bio"
     }
 }
 
