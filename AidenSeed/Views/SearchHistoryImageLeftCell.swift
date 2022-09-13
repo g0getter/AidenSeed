@@ -7,9 +7,11 @@
 
 import UIKit
 
-class SearchHistoryImageLeftCell: UITableViewCell {
+class SearchHistoryImageLeftCell: UITableViewCell, SearchHistoryImageCell {
 
     static let identifier = "searchHistoryImageLeftCell"
+    
+    var userInfo: UserInfo?
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!

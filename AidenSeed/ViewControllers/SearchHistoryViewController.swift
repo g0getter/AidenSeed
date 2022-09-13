@@ -53,13 +53,24 @@ class SearchHistoryViewController: UIViewController, View {
         self.bindAction()
         self.bindState()
         
-        // TODO: LocalDB에서 데이터 가져오기
         self.retrieveHistory()
         
     }
     
     private func bindAction() {
         
+        // TODO: model이 왜 SearchHistoryImageCell이 아니라 UserInfo인가?
+        tableView.rx.modelSelected(UserInfo.self)
+            .subscribe(onNext: { userInfo in
+                guard let userInfoVC = UIStoryboard(name: "UserInfoViewController", bundle: nil).instantiateViewController(withIdentifier: "UserInfoViewController") as? UserInfoViewController else { return }
+                // cell의 userInfo 전달
+                userInfoVC.userInfo = userInfo
+                userInfoVC.reactor = UserInfoViewReactor(navigateFromSearchUser: false)
+                
+                self.navigationController?.pushViewController(userInfoVC, animated: true)
+            }).disposed(by: disposeBag)
+        
+               
     }
     
     private func bindState() {
@@ -90,24 +101,25 @@ class SearchHistoryViewController: UIViewController, View {
         
         Observable.just(history).bind(to: tableView.rx.items) { (tableView, index, userInfo) -> UITableViewCell in
             
+            var cell: SearchHistoryImageCell?
+            
             guard let name = userInfo.name else { return UITableViewCell() }
             if name < "N" {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageRightCell") as? SearchHistoryImageRightCell {
-                    cell.userNameLabel.text = name
-                    let url = userInfo.avatarURL?.url ?? URL(string: "")
-                    cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
-                    return cell
-                }
+                cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageRightCell") as? SearchHistoryImageRightCell
             } else {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageLeftCell") as? SearchHistoryImageLeftCell {
-                    cell.userNameLabel.text = name
-                    let url = userInfo.avatarURL?.url ?? URL(string: "")
-                    cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
-                    return cell
-                }
+                cell = tableView.dequeueReusableCell(withIdentifier: "searchHistoryImageLeftCell") as? SearchHistoryImageLeftCell
             }
-
-            return UITableViewCell()
+            
+            guard let cell = cell else { return UITableViewCell() }
+            
+            cell.userInfo = userInfo
+            
+            cell.userNameLabel.text = name
+            let url = userInfo.avatarURL?.url ?? URL(string: "")
+            cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
+            cell.selectionStyle = .none
+            
+            return cell
 
         }.disposed(by: disposeBag)
     }

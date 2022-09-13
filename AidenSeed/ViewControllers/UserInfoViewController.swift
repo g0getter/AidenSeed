@@ -57,22 +57,24 @@ class UserInfoViewController: UIViewController {
         
     }
     
-    private func setUserInfo(_ loginID: String?, bio: String?, blog: String?) {
-        userInfoLabel.text = loginID
-        bioView.text = bio
-        blogView.text = blog
+    private func setUserInfo(_ userInfo: UserInfo) {
+        self.userInfo = userInfo
+        
+        userInfoLabel.text = userInfo.name
+        bioView.text = userInfo.bio
+        blogView.text = userInfo.blog
     }
     
     private func bindAction() {
         
     }
     
-    private func bindState() {
-        self.reactor?.userInfoRelay
+    private func bindState(_ reactor: UserInfoViewReactor) {
+        reactor.userInfoRelay
             .bind(onNext: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.setUserImage(userInfo.avatarURL)
-                self.setUserInfo(userInfo.login, bio: userInfo.bio, blog: userInfo.blog)
+                self.setUserInfo(userInfo)
             }).disposed(by: disposeBag)
     }
 }
@@ -88,8 +90,8 @@ extension UserInfoViewController: UITextViewDelegate {
 extension UserInfoViewController: StoryboardView {
     
     func bind(reactor: UserInfoViewReactor) {
-        reactor.getUserInfo(userInfo)
         self.bindAction()
-        self.bindState()
+        self.bindState(reactor)
+        reactor.getUserInfo(userInfo) // 순서 중요. 바인딩 후 accept()
     }
 }
