@@ -14,21 +14,19 @@ class UserInfoViewController: UIViewController {
     var disposeBag = DisposeBag()
 
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var userInfo: UILabel!
+    @IBOutlet weak var userInfoLabel: UILabel!
     @IBOutlet weak var bioView: UITextView!
     @IBOutlet weak var blogView: UITextView!
     
-    var userImageUrl: String?
-    
-    var userName: String?
-    
+    var userInfo: UserInfo?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setUserImage(userImageUrl)
+        self.setUserImage(userInfo?.avatarURL)
         self.setTextView()
         
-        userInfo.numberOfLines = 0
+        userInfoLabel.numberOfLines = 0
     }
     
     private func setUserImage(_ url: String?) {
@@ -60,7 +58,7 @@ class UserInfoViewController: UIViewController {
     }
     
     private func setUserInfo(_ loginID: String?, bio: String?, blog: String?) {
-        userInfo.text = loginID
+        userInfoLabel.text = loginID
         bioView.text = bio
         blogView.text = blog
     }
@@ -70,7 +68,7 @@ class UserInfoViewController: UIViewController {
     }
     
     private func bindState() {
-        self.reactor?.userInfo
+        self.reactor?.userInfoRelay
             .bind(onNext: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.setUserImage(userInfo.avatarURL)
@@ -90,7 +88,7 @@ extension UserInfoViewController: UITextViewDelegate {
 extension UserInfoViewController: StoryboardView {
     
     func bind(reactor: UserInfoViewReactor) {
-        self.reactor?.getUserInfo(userName)
+        reactor.getUserInfo(userInfo)
         self.bindAction()
         self.bindState()
     }

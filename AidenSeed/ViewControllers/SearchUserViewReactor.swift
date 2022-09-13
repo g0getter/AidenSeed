@@ -10,11 +10,12 @@ import Moya
 import RxSwift
 import Then
 import RxRelay
+import RealmSwift
 
 class SearchUserViewReactor: Reactor {
     var gitHubProvider = MoyaProvider<GitHubProvider>()
     
-    var results = PublishRelay<[String?]>()
+    var results = PublishRelay<[UserInfo?]>()
     
     enum Action {
         case search(String?)
@@ -77,12 +78,14 @@ extension SearchUserViewReactor {
             case let .success(result):
                 guard let response = try? result.map(SearchUsersResponse.self) else { return }
                 guard let items = response.items else { return }
-                let responseUserNames = items.map{ $0.login ?? "" }
-                userNames = responseUserNames
-                
-                userNames.sort(by: >) // sort descending
 
-                self.results.accept(userNames)
+                var sortedItems = items
+                sortedItems.sort { (a, b) in
+                    return a.login ?? "" > b.login ?? ""
+                }
+                
+                self.results.accept(sortedItems)
+                
                 
             case let .failure(result):
                 print("Error occurred!:\n\(result)")

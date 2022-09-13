@@ -33,6 +33,8 @@
 		DFAD212028C6CA8800F06001 /* SearchHistoryImageRightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFAD211E28C6CA8800F06001 /* SearchHistoryImageRightCell.xib */; };
 		DFB77C8728C17E44004826F5 /* UserInfoViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB77C8628C17E44004826F5 /* UserInfoViewReactor.swift */; };
 		DFB807D428C5D1200098E600 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB807D328C5D1200098E600 /* WebViewController.swift */; };
+		DFBBA21428C96F1F001EA20D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DFBBA21328C96F1F001EA20D /* Realm */; };
+		DFBBA21628C96F1F001EA20D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DFBBA21528C96F1F001EA20D /* RealmSwift */; };
 		DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBBA21628C96F1F001EA20D /* RealmSwift in Frameworks */,
+				DFBBA21428C96F1F001EA20D /* Realm in Frameworks */,
 				560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,12 +133,12 @@
 				DF60BEDA28B5FEDA00158998 /* HomeViewReactor.swift */,
 				DF60BEDC28B6094200158998 /* SearchUserViewController.swift */,
 				DF60BEDE28B6094C00158998 /* SearchHistoryViewController.swift */,
+				DFAD211B28C6C88000F06001 /* SearchHistoryViewReactor.swift */,
 				DF60BEE028B61A6300158998 /* SearchUserViewReactor.swift */,
 				DFA9E81B28C092F1003912E7 /* UserInfoViewController.swift */,
 				DFA9E81D28C09314003912E7 /* UserInfoViewController.storyboard */,
 				DFB77C8628C17E44004826F5 /* UserInfoViewReactor.swift */,
 				DFB807D328C5D1200098E600 /* WebViewController.swift */,
-				DFAD211B28C6C88000F06001 /* SearchHistoryViewReactor.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -225,6 +229,10 @@
 			dependencies = (
 			);
 			name = AidenSeed;
+			packageProductDependencies = (
+				DFBBA21328C96F1F001EA20D /* Realm */,
+				DFBBA21528C96F1F001EA20D /* RealmSwift */,
+			);
 			productName = AidenSeed;
 			productReference = DFA2A10028B5AF5600588C97 /* AidenSeed.app */;
 			productType = "com.apple.product-type.application";
@@ -253,6 +261,9 @@
 				Base,
 			);
 			mainGroup = DFA2A0F728B5AF5600588C97;
+			packageReferences = (
+				DFBBA21228C96F1F001EA20D /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = DFA2A10128B5AF5600588C97 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -556,6 +567,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DFBBA21228C96F1F001EA20D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DFBBA21328C96F1F001EA20D /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFBBA21228C96F1F001EA20D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		DFBBA21528C96F1F001EA20D /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFBBA21228C96F1F001EA20D /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DFA2A0F828B5AF5600588C97 /* Project object */;
 }

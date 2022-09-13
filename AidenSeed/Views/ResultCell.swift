@@ -11,6 +11,8 @@ class ResultCell: UITableViewCell {
     
     static let identifier = "ResultCell"
     
+    var userInfo: UserInfo?
+    
 //    init(_ userName: String?) {
 //        self.userName = userName
 //    }
@@ -45,6 +47,8 @@ class ResultCell: UITableViewCell {
                 $0.leading.trailing.equalToSuperview().inset(10)
                 $0.height.equalTo(35)
             }
+            
+            label.text = userInfo?.name // TODO: 얘만 남기고 reactor.results.bind()에 resultLabel text 넣는 것 삭제해보기
         }
     }
 
