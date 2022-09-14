@@ -154,22 +154,14 @@ extension SearchUserViewController: View {
     private func bindAction(_ reactor: SearchUserViewReactor) {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .map { .search($0) }
-            .bind(to: reactor.action )
-            .disposed(by: disposeBag)
-       
-        // FIXME: 아래 바인딩 삭제
-        textField.rx.text
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .bind(onNext: { userName in
-                
-                reactor.searchUsers(userName)
+                self.reactor?.action.onNext(.loadMore(userName, self.datePicker.date.toString(), nil))
             }).disposed(by: disposeBag)
         
         datePicker.rx.value.changed.asObservable()
             .subscribe({ event in
                 guard let date = event.element else { return }
-                self.reactor?.searchUsers(self.textField.text, createdBefore: date.toString())
+                self.reactor?.action.onNext(.loadMore(self.textField.text, date.toString(), nil)) // TODO: nil 맞는지 확인
             }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected
@@ -189,12 +181,21 @@ extension SearchUserViewController: View {
     private func bindState(_ reactor: SearchUserViewReactor) {
         // TODO: Reactor 이용해서 화면 업데이트하기. 현재는 사실상 사용하고 있지 않음.
         // table view cell 구성
-//        reactor.state.map { $0.userNames }
+//        reactor.state.map { $0.userInfo }
 //            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
-//                index, userName, cell in
+//                index, userInfo, cell in
 //                guard let cell = cell as? ResultCell else { return }
 //                cell.selectionStyle = .none
-//                cell.resultLabel.text = userName
+//                cell.resultLabel.text = userInfo?.name
+//                cell.userInfo = userInfo
+//
+//                let numberOfCells = self.tableView.numberOfRows(inSection: 0)
+//                let nextPageNum = numberOfCells / 20
+//                if index == numberOfCells - 3 { // 뒤에서 세 번째 cell이면
+//                    print(index)
+//
+//                    self.reactor?.action.onNext(.loadMore(self.textField.text, nil, nextPageNum))
+//                }
 //            }.disposed(by: disposeBag)
         
         reactor.results
@@ -203,9 +204,19 @@ extension SearchUserViewController: View {
                 guard let cell = cell as? ResultCell else { return }
                 cell.selectionStyle = .none
                 cell.resultLabel.text = userInfo?.login // TODO: 가능하다면 삭제
-                
+
                 cell.userInfo = userInfo
+
+                let numberOfCells = self.tableView.numberOfRows(inSection: 0)
+                let nextPageNum = numberOfCells / 20
                 
+                if index == numberOfCells - 3 { // 뒤에서 세 번째 cell이면
+                    print(index)
+
+                    self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+                }
+
+
             }.disposed(by: disposeBag)
         
         
