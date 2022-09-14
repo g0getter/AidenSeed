@@ -17,49 +17,40 @@ class SearchUserViewReactor: Reactor {
     
     var results = PublishRelay<[UserInfo?]>()
     
+    /// 계속 쌓아나갈 유저이름 배열
+    private var userInfo: [UserInfo] = []
+
     enum Action {
-        case search(String?)
+        case loadMore(String?, String?, Int?)
     }
     
     enum Mutation {
-        case searchUserNames([String?])
+        case loadMoreUserNames([UserInfo?])
     }
     
     struct State {
-        var userNames: [String?] = []
+        var pageNumber: Int? = 0
+        var userInfo: [UserInfo?] = [] // 추가!!
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .search(let userName):
-            var userNames = [""]
             
-            gitHubProvider.request(.getUsers(userName: userName)) { result in
-                switch result {
-                case let .success(result):
-                    guard let response = try? result.map(SearchUsersResponse.self) else { return }
-                    guard let items = response.items else { return }
-                    let responseUserNames = items.map{$0.login ?? ""}
-                    userNames = responseUserNames
-                    
-                    // TODO: Observable<Mutation> 리턴
-                    
-                case let .failure(result):
-                    print("Error occurred!:\n\(result)")
-                    print(result.failureReason ?? "")
+        case .loadMore(let userName, let createdBefore, let nextPage):
+            
+            return Observable.concat([
+                self.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
+                    Mutation.loadMoreUserNames($0)
                 }
-                
-            }
-            
-            return Observable.just(.searchUserNames(userNames))
+            ])
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var state = State()
         switch mutation {
-        case .searchUserNames(let userNames):
-            state.userNames = userNames
+        case .loadMoreUserNames(let userInfo):
+            state.userInfo = userInfo
         }
         
         return state
@@ -69,28 +60,30 @@ class SearchUserViewReactor: Reactor {
 }
 
 extension SearchUserViewReactor {
-    func searchUsers(_ userName: String?, createdBefore: String? = nil) {
-        
-        gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore)) { result in
-            // TODO: case let
+    
+    private func loadMoreUsers(_ userName: String?, createdBefore: String? = nil, nextPage: Int?) -> Observable<[UserInfo]> {
+        gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore, pageNumber: nextPage)) { result in
             switch result {
             case let .success(result):
                 guard let response = try? result.map(SearchUsersResponse.self) else { return }
                 guard let items = response.items else { return }
-
+                
                 var sortedItems = items
                 sortedItems.sort { (a, b) in
                     return a.login ?? "" < b.login ?? ""
                 }
-                
-                self.results.accept(sortedItems)
-                
+
+                self.userInfo.append(contentsOf: sortedItems) // 09/14 추가
+                self.results.accept(self.userInfo)
+                // TODO: Observable<Mutation> 리턴
                 
             case let .failure(result):
                 print("Error occurred!:\n\(result)")
                 print(result.failureReason ?? "")
             }
         }
+        
+        return .just(self.userInfo) // 사실상 무의미
     }
     
 }

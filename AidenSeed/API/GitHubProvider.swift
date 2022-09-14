@@ -8,7 +8,7 @@
 import Moya
 
 enum GitHubProvider {
-    case getUsers(userName: String?, createdBefore: String? = nil)
+    case getUsers(userName: String?, createdBefore: String? = nil, pageNumber: Int? = 0)
     case getAUserInfo(userName: String)
 }
 
@@ -35,7 +35,7 @@ extension GitHubProvider: TargetType {
     
     var task: Task {
         switch self {
-        case .getUsers(let userName, let createdBefore):
+        case .getUsers(let userName, let createdBefore, let pageNumber):
             var searchKeyword = "\"\""
             let numberPerPage = 20
 //            TODO: var pageNumber(출력할 페이지 넘버)
@@ -51,8 +51,11 @@ extension GitHubProvider: TargetType {
                 }
             }
             
-            let params: [String : Any] = ["q": searchKeyword,
+            var params: [String : Any] = ["q": searchKeyword,
                                           "per_page": numberPerPage]
+            if let pageNum = pageNumber {
+                params.updateValue(pageNum, forKey: "page")
+            }
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             // TODO: encoding: URLEncoding.queryString or JSONEncoding.default
         case .getAUserInfo:
