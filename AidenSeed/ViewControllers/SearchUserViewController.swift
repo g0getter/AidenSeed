@@ -49,9 +49,9 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .white
+        FirebaseHandler.screenLogEvent("\(self)", #file, #function)
         
+        view.backgroundColor = .white
         self.setUI()
         self.setTableView()
         self.setKeyboardView()
