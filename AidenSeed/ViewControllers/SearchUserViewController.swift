@@ -137,7 +137,7 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setTableView() {
-        
+        tableView.contentSize = CGSize(width: self.view.frame.size.width, height: 500)
     }
 }
     
@@ -172,6 +172,22 @@ extension SearchUserViewController: View {
                 self.navigationController?.pushViewController(userInfoVC, animated: true)
                 
             }).disposed(by: disposeBag)
+        
+        tableView.rx.contentOffset
+            .map { $0.y }
+            .subscribe(onNext: { [weak self] contentOffset in
+                    guard let self = self else { return }
+                    let contentBottomOffset = contentOffset + self.tableView.frame.height
+                    let contentSize = self.tableView.contentSize.height
+                    
+                    if contentSize * 0.2 > contentSize - contentBottomOffset && self.reactor?.isLoadingMore == false {
+                        self.reactor?.isLoadingMore = true
+                        let numberOfCells = self.tableView.numberOfRows(inSection: 0)
+                        let nextPageNum = numberOfCells / 20 // TODO: 20 to Constant
+                        
+                        self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+                    }
+            }).disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {
@@ -196,23 +212,25 @@ extension SearchUserViewController: View {
         
         reactor.results
             .bind(to: tableView.rx.items) { (tableView, index, userInfo) -> ResultCell in
-            
+
                 let cell = self.getFilledResultCell(userInfo: userInfo)
 
-                // TODO: 스크롤 방식 변경
-                let numberOfCells = self.tableView.numberOfRows(inSection: 0)
-                let nextPageNum = numberOfCells / 20
-
-                if index == numberOfCells - 3 { // 뒤에서 세 번째 cell이면
-                    print(index)
-
-                    reactor.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
-                }
-                
                 return cell
 
             }.disposed(by: disposeBag)
         
+        // TODO: Q. 아래 방식을 이용할 수는 없는지?
+//        reactor.results
+//            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) { index, userInfo, cell in
+//                // 여기다가 cell 속성 줄줄 쓰기 싫어서
+//                guard let cell = cell as? ResultCell else { return }
+//                guard let userID = userInfo?.login else { return }
+//
+//                cell.selectionStyle = .none
+//                cell.resultLabel.text = userID // 삭제하면 안됨. 여기 대신 Cell 내부에서 UI 세팅 시 하면 안됨.
+//                cell.userInfo = userInfo
+//            }.disposed(by: disposeBag)
+            
         
     }
     
@@ -230,4 +248,3 @@ extension SearchUserViewController: View {
     }
 
 }
-

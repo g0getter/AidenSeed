@@ -15,6 +15,7 @@ import RealmSwift
 class SearchUserViewReactor: Reactor {
     
     var results = PublishRelay<[UserInfo?]>()
+    var isLoadingMore = false
     
     /// 계속 쌓아나갈 유저이름 배열
     private var userInfo: [UserInfo] = []
@@ -75,8 +76,9 @@ extension SearchUserViewReactor {
                     return a.login ?? "" < b.login ?? ""
                 }
 
-                self.userInfo.append(contentsOf: sortedItems) // 09/14 추가
+                self.userInfo.append(contentsOf: sortedItems)
                 self.results.accept(self.userInfo)
+                self.isLoadingMore = false
                 // TODO: Observable<Mutation> 리턴
                 
             case let .failure(result):
