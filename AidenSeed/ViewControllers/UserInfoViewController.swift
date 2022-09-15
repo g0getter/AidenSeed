@@ -24,7 +24,7 @@ class UserInfoViewController: UIViewController {
         super.viewDidLoad()
         
         self.setUserImage(userInfo?.avatarURL)
-        self.setTextView()
+        self.setUI()
         
         userInfoLabel.numberOfLines = 0
     }
@@ -38,8 +38,12 @@ class UserInfoViewController: UIViewController {
         }
     }
     
-    /// `bioView`, `blogView`링크 선택되도록 세팅
-    private func setTextView() {
+    /// `userInfoLabel` 세팅,  `bioView`, `blogView`텍스트뷰의 링크 선택되도록 세팅
+    private func setUI() {
+        self.userInfoLabel.do {
+            $0.textAlignment = .center
+        }
+        
         self.bioView.do {
             $0.textAlignment = .center
             $0.dataDetectorTypes = .link
@@ -54,13 +58,16 @@ class UserInfoViewController: UIViewController {
             $0.isEditable = false
             $0.isScrollEnabled = false // 유동 높이 위해 필요
         }
-        
     }
     
     private func setUserInfo(_ userInfo: UserInfo) {
         self.userInfo = userInfo
         
-        userInfoLabel.text = userInfo.name
+        userInfoLabel.text = userInfo.name ?? ""
+        if let userID = userInfo.id {
+            userInfoLabel.text?.append("\n(id: \(userID))")
+        }
+        
         bioView.text = userInfo.bio
         blogView.text = userInfo.blog
     }

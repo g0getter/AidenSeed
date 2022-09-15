@@ -13,10 +13,6 @@ class ResultCell: UITableViewCell {
     
     var userInfo: UserInfo?
     
-//    init(_ userName: String?) {
-//        self.userName = userName
-//    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,6 +34,7 @@ class ResultCell: UITableViewCell {
         resultLabel.textColor = .blue
     }
     
+    /// UI만 세팅하고 내용물은 채우지 않음
     private func setUI() {
         resultLabel.do { label in
             contentView.addSubview(label)
@@ -47,8 +44,6 @@ class ResultCell: UITableViewCell {
                 $0.leading.trailing.equalToSuperview().inset(10)
                 $0.height.equalTo(35)
             }
-            
-            label.text = userInfo?.name // TODO: 얘만 남기고 reactor.results.bind()에 resultLabel text 넣는 것 삭제해보기
         }
     }
 

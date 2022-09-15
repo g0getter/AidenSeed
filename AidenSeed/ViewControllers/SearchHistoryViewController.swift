@@ -73,11 +73,9 @@ class SearchHistoryViewController: UIViewController, View {
         self.bindAction(reactor)
         self.bindState(reactor)
         
-        // TODO: 아래 호출 위치 - viewWillAppear 혹은 bind()
+        // TODO: Q. 아래 호출 위치 - viewWillAppear 혹은 bind()
         // TODO: refresh 대신 처음 호출하는 action 추가해야 하는지?
-        reactor.action.onNext(Reactor.Action.refresh)
-//        self.reactor?.action.onNext(Reactor.Action.refresh)
-        
+        reactor.action.onNext(Reactor.Action.refresh)        
     }
     
     private func bindAction(_ reactor: SearchHistoryViewReactor) {
@@ -113,7 +111,6 @@ class SearchHistoryViewController: UIViewController, View {
                 var cell: SearchHistoryImageCell?
                 
                 guard let history = history else { return UITableViewCell() }
-                guard let name = history.userInfo?.name else { return UITableViewCell() }
                 guard let cellType = history.cellType else { return UITableViewCell() }
 
                 switch cellType {
@@ -128,7 +125,7 @@ class SearchHistoryViewController: UIViewController, View {
                 
                 cell.userInfo = history.userInfo
                 
-                cell.userNameLabel.text = name
+                cell.userNameLabel.text = history.userInfo?.name
                 let url = history.userInfo?.avatarURL?.url ?? URL(string: "")
                 cell.userImageView.kf.setImage(with: url, placeholder: UIImage(named: "defaultImage"))
                 cell.selectionStyle = .none
