@@ -31,3 +31,4 @@ class FirebaseHandler {
         Analytics.logEvent("SCREEN_VIEW", parameters: parameters)
     }
 }
+

@@ -66,7 +66,6 @@ extension SearchHistoryViewReactor {
 }
 
 
-
 struct History {
     var cellType: KeywordType?
     var userInfo: UserInfo?
