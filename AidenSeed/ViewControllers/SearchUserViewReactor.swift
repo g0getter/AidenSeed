@@ -13,7 +13,6 @@ import RxRelay
 import RealmSwift
 
 class SearchUserViewReactor: Reactor {
-    var gitHubProvider = MoyaProvider<GitHubProvider>()
     
     var results = PublishRelay<[UserInfo?]>()
     

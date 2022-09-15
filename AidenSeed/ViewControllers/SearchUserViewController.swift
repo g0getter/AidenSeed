@@ -8,10 +8,6 @@
 import UIKit
 import RxSwift
 import ReactorKit
-import RealmSwift
-
-///
-let realm = try? Realm() // 여기서 끝.
 
 final class SearchUserViewController: UIViewController, UITextFieldDelegate {
 
@@ -212,9 +208,7 @@ extension SearchUserViewController: View {
 
                     reactor.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
                 }
-
                 
-
                 return cell
 
             }.disposed(by: disposeBag)

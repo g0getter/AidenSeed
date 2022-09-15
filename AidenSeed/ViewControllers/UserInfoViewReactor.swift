@@ -19,8 +19,6 @@ class UserInfoViewReactor: Reactor {
     
     var navigateFromSearchUser: Bool
     
-    var gitHubProvider = MoyaProvider<GitHubProvider>()
-    
     enum Action {}
     
     enum Mutation {}

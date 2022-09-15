@@ -7,6 +7,8 @@
 
 import Moya
 
+var gitHubProvider = MoyaProvider<GitHubProvider>()
+
 enum GitHubProvider {
     case getUsers(userName: String?, createdBefore: String? = nil, pageNumber: Int? = 0)
     case getAUserInfo(userName: String)
