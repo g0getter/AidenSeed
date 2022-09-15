@@ -32,10 +32,7 @@ class UserInfoViewReactor: Reactor {
     var userInfoRelay = PublishRelay<UserInfo>()
     
     func getUserInfo(_ userInfo: UserInfo?) {
-//        guard let userName = userInfo?.name else { return }
         guard let userName = userInfo?.login else { return }
-        // TODO: 이름(login, blog, bio 출력)
-        
         guard let realm = realm else { return }
         
         // SearchUserViewController에서 이동 시: request API

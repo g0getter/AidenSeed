@@ -57,12 +57,11 @@ extension SearchHistoryViewReactor {
         let userInfo = realm.objects(UserInfo.self)
         
         // TODO: Result<> 다루기(LazyMapSequence)
-        let test = Array(userInfo)
+        let userInfoArray = Array(userInfo)
         
-        let history = test.map { return History(cellType: KeywordType.getKeywordType(userName: $0.name), userInfo: $0) }
+        let history = userInfoArray.map { return History(cellType: KeywordType.getKeywordType(userID: $0.id), userInfo: $0) }
         return .just(history)
     }
-
     
 }
 
@@ -77,15 +76,24 @@ enum KeywordType {
     case imageLeft
     case imageRight
     
-    static func getKeywordType(userName: String?) -> KeywordType {
-        guard let userName = userName else {
+    static func getKeywordType(userID: Int?) -> KeywordType {
+        
+        guard let userID = userID else {
             return .imageLeft
         }
-
-        if userName < "N" {
+        
+        let firstDigit = self.getFirstDigit(userID)
+        
+        if firstDigit <= "5" {
             return .imageRight
         } else {
             return .imageLeft
         }
+
+    }
+    
+    static func getFirstDigit(_ userID: Int) -> String {
+        let firstCharactor = "\(userID)".first ?? "0"
+        return "\(firstCharactor)"
     }
 }

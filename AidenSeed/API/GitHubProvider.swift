@@ -38,7 +38,7 @@ extension GitHubProvider: TargetType {
         case .getUsers(let userName, let createdBefore, let pageNumber):
             var searchKeyword = "\"\""
             let numberPerPage = 20
-//            TODO: var pageNumber(출력할 페이지 넘버)
+            
             if let userName = userName, userName.isEmpty == false {
                 searchKeyword = userName
             }

@@ -155,13 +155,13 @@ extension SearchUserViewController: View {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .bind(onNext: { userName in
-                self.reactor?.action.onNext(.loadMore(userName, self.datePicker.date.toString(), nil))
+                reactor.action.onNext(.loadMore(userName, self.datePicker.date.toString(), nil))
             }).disposed(by: disposeBag)
         
         datePicker.rx.value.changed.asObservable()
             .subscribe({ event in
                 guard let date = event.element else { return }
-                self.reactor?.action.onNext(.loadMore(self.textField.text, date.toString(), nil)) // TODO: nil 맞는지 확인
+                reactor.action.onNext(.loadMore(self.textField.text, date.toString(), nil))
             }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected
@@ -199,27 +199,41 @@ extension SearchUserViewController: View {
 //            }.disposed(by: disposeBag)
         
         reactor.results
-            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
-                index, userInfo, cell in
-                guard let cell = cell as? ResultCell else { return }
-                cell.selectionStyle = .none
-                cell.resultLabel.text = userInfo?.login // TODO: 가능하다면 삭제
+            .bind(to: tableView.rx.items) { (tableView, index, userInfo) -> ResultCell in
+            
+                let cell = self.getFilledResultCell(userInfo: userInfo)
 
-                cell.userInfo = userInfo
-
+                // TODO: 스크롤 방식 변경
                 let numberOfCells = self.tableView.numberOfRows(inSection: 0)
                 let nextPageNum = numberOfCells / 20
-                
+
                 if index == numberOfCells - 3 { // 뒤에서 세 번째 cell이면
                     print(index)
 
-                    self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+                    reactor.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
                 }
 
+                
+
+                return cell
 
             }.disposed(by: disposeBag)
         
         
     }
+    
+    /// 데이터를 채운 ResultCell을 반환
+    private func getFilledResultCell(userInfo: UserInfo?) -> ResultCell {
+        let cell = ResultCell()
+        
+        guard let userID = userInfo?.login else { return cell }
+        
+        cell.selectionStyle = .none
+        cell.resultLabel.text = userID // 삭제하면 안됨. 여기 대신 Cell 내부에서 UI 세팅 시 하면 안됨.
+        cell.userInfo = userInfo
+        return cell
+        
+    }
+
 }
 

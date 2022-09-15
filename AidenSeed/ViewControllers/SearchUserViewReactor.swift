@@ -35,7 +35,6 @@ class SearchUserViewReactor: Reactor {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-            
         case .loadMore(let userName, let createdBefore, let nextPage):
             
             return Observable.concat([
@@ -62,6 +61,10 @@ class SearchUserViewReactor: Reactor {
 extension SearchUserViewReactor {
     
     private func loadMoreUsers(_ userName: String?, createdBefore: String? = nil, nextPage: Int?) -> Observable<[UserInfo]> {
+        
+        if nextPage == nil { // 검색해서 처음 로드 시
+            self.userInfo = []
+        }
         gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore, pageNumber: nextPage)) { result in
             switch result {
             case let .success(result):
