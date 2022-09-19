@@ -13,32 +13,33 @@ import RxRelay
 import RealmSwift
 
 class SearchUserViewReactor: Reactor {
-    
-    var results = PublishRelay<[UserInfo?]>()
-    var isLoadingMore = false
-    
-    /// 계속 쌓아나갈 유저이름 배열
-    private var userInfo: [UserInfo] = []
 
     enum Action {
+        case resetAndSearch(String?, String?)
         case loadMore(String?, String?, Int?)
     }
     
     enum Mutation {
+        case resetAndSearchUserNames([UserInfo?])
         case loadMoreUserNames([UserInfo?])
     }
     
     struct State {
-        var pageNumber: Int? = 0
-        var userInfo: [UserInfo?] = [] // 추가!!
+        var userInfo: [UserInfo?] = []
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .resetAndSearch(let userName, let createdBefore):
+            return Observable.concat([
+                gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: 1).map {
+                    Mutation.resetAndSearchUserNames($0)
+                }
+            ])
         case .loadMore(let userName, let createdBefore, let nextPage):
             
             return Observable.concat([
-                self.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
+                gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
                     Mutation.loadMoreUserNames($0)
                 }
             ])
@@ -46,48 +47,16 @@ class SearchUserViewReactor: Reactor {
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
-        var state = State()
+        var newState = state
         switch mutation {
+        case .resetAndSearchUserNames(let userInfo):
+            newState.userInfo = userInfo
         case .loadMoreUserNames(let userInfo):
-            state.userInfo = userInfo
+            newState.userInfo = state.userInfo + userInfo
         }
         
-        return state
+        return newState
     }
     
     var initialState: State = State()
-}
-
-extension SearchUserViewReactor {
-    
-    private func loadMoreUsers(_ userName: String?, createdBefore: String? = nil, nextPage: Int?) -> Observable<[UserInfo]> {
-        
-        if nextPage == nil { // 검색해서 처음 로드 시
-            self.userInfo = []
-        }
-        gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore, pageNumber: nextPage)) { result in
-            switch result {
-            case let .success(result):
-                guard let response = try? result.map(SearchUsersResponse.self) else { return }
-                guard let items = response.items else { return }
-                
-                var sortedItems = items
-                sortedItems.sort { (a, b) in
-                    return a.login ?? "" < b.login ?? ""
-                }
-
-                self.userInfo.append(contentsOf: sortedItems)
-                self.results.accept(self.userInfo)
-                self.isLoadingMore = false
-                // TODO: Observable<Mutation> 리턴
-                
-            case let .failure(result):
-                print("Error occurred!:\n\(result)")
-                print(result.failureReason ?? "")
-            }
-        }
-        
-        return .just(self.userInfo) // 사실상 무의미
-    }
-    
 }
