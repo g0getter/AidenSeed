@@ -11,11 +11,13 @@ import ReactorKit
 class SearchHistoryViewReactor: Reactor {
     enum Action {
         case refresh
+        case loadMore(Int)
     }
     
     enum Mutation {
-        case loading
+        case loading(Bool)
         case loadHistory([History])
+        case loadHistoryMore([History])
     }
     
     struct State {
@@ -24,47 +26,41 @@ class SearchHistoryViewReactor: Reactor {
     }
     
     var initialState = State(isLoading: true, history: [])
-
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .refresh:
+            let firstHistoryUnit = realmManager.retrieveUserInfo(startIndex: 0).map { $0.asHistory }
             return Observable.concat([
-                Observable.just(Mutation.loading),
-                
-                // retrieve data
-                self.retrieveHistory().map{
-                    Mutation.loadHistory($0)
-                }
+                .just(.loading(true)),
+                .just(.loadHistory(firstHistoryUnit)),
+                .just(.loading(false))
+            ])
+        case let .loadMore(startIndex):
+            let newHistory = realmManager.retrieveUserInfo(startIndex: startIndex)
+                .map { $0.asHistory }
+            return Observable.concat([
+                .just(.loadHistoryMore(newHistory)),
             ])
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
         switch mutation {
-        case .loading:
-            return State(isLoading: true, history: nil)
+        case .loading(let isLoading):
+            newState.isLoading = isLoading
         case .loadHistory(let history):
-            return State(isLoading: false, history: history)
+            newState.history = history
+        case .loadHistoryMore(let moreHistory):
+            if let previousHistory = state.history {
+                newState.history = previousHistory + moreHistory
+            }
         }
+        
+        return newState
     }
 }
-
-extension SearchHistoryViewReactor {
-    private func retrieveHistory() -> Observable<[History]> {
-        let emptyResult: [History] = []
-        guard let realm = realm else { return .just(emptyResult) }
-        let userInfo = realm.objects(UserInfo.self)
-        
-        // TODO: Result<> 다루기(LazyMapSequence)
-        let userInfoArray = Array(userInfo)
-        
-        let history = userInfoArray.map { return History(cellType: KeywordType.getKeywordType(userID: $0.id), userInfo: $0) }
-        return .just(history)
-    }
-    
-}
-
 
 struct History {
     var cellType: KeywordType?

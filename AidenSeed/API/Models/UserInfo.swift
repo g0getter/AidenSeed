@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import ReactorKit
 
 struct SearchUsersResponse: Codable {
     let totalCount: Int?
@@ -34,5 +35,12 @@ class UserInfo: Object, Codable {
         case name = "name"
         case blog = "blog"
         case bio = "bio"
+    }
+}
+
+extension UserInfo {
+    /// Converts UserInfo to History
+    var asHistory: History {
+        return History(cellType: KeywordType.getKeywordType(userID: self.id), userInfo: self)
     }
 }

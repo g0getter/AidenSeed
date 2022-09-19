@@ -33,14 +33,13 @@ class SearchUserViewReactor: Reactor {
         case .resetAndSearch(let userName, let createdBefore):
             return Observable.concat([
                 gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: 1).map {
-                    Mutation.resetAndSearchUserNames($0)
+                    .resetAndSearchUserNames($0)
                 }
             ])
         case .loadMore(let userName, let createdBefore, let nextPage):
-            
             return Observable.concat([
                 gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
-                    Mutation.loadMoreUserNames($0)
+                    .loadMoreUserNames($0)
                 }
             ])
         }

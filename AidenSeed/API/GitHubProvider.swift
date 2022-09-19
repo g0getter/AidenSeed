@@ -83,10 +83,6 @@ class GitHubAPI {
     func loadMoreUsers(_ userName: String?, createdBefore: String? = nil, nextPage: Int?) -> Observable<[UserInfo]> {
         
         return Observable.create { observer in
-//            if nextPage == nil {
-//                observer.onNext([])
-//                return Disposables.create()
-//            }
             
             gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore, pageNumber: nextPage)) { result in
                 switch result {
