@@ -6,8 +6,10 @@
 //
 
 import Moya
+import RxSwift
 
 var gitHubProvider = MoyaProvider<GitHubProvider>()
+var gitHubAPI = GitHubAPI()
 
 enum GitHubProvider {
     case getUsers(userName: String?, createdBefore: String? = nil, pageNumber: Int? = 0)
@@ -28,7 +30,7 @@ extension GitHubProvider: TargetType {
         }
     }
     
-    var method: Method {
+    var method: Moya.Method {
         switch self {
         case .getUsers, .getAUserInfo:
             return .get
@@ -72,5 +74,42 @@ extension GitHubProvider: TargetType {
         return ["Content-type": "application/json"]
     }
     
+}
+
+//extension GitHubProvider {
+class GitHubAPI {
     
+    /// 새로운 UserInfo 배열을 반환
+    func loadMoreUsers(_ userName: String?, createdBefore: String? = nil, nextPage: Int?) -> Observable<[UserInfo]> {
+        
+        return Observable.create { observer in
+//            if nextPage == nil {
+//                observer.onNext([])
+//                return Disposables.create()
+//            }
+            
+            gitHubProvider.request(.getUsers(userName: userName, createdBefore: createdBefore, pageNumber: nextPage)) { result in
+                switch result {
+                case let .success(result):
+                    guard let response = try? result.map(SearchUsersResponse.self) else { return }
+                    guard let items = response.items else { return }
+                    
+                    var sortedItems = items
+                    sortedItems.sort { (a, b) in
+                        return a.login ?? "" < b.login ?? ""
+                    }
+                    
+                    // Observable<Mutation> 리턴 대신 observer에 방출
+                    observer.onNext(sortedItems)
+                    
+                case let .failure(result):
+                    print("Error occurred!:\n\(result)")
+                    print(result.failureReason ?? "")
+                }
+            }
+            
+            return Disposables.create()
+            
+        }
+    }
 }

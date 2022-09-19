@@ -45,7 +45,7 @@ final class SearchUserViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FirebaseHandler.screenLogEvent("\(self)", #file, #function)
+        FirebaseLogger.screenLogEvent("\(self)", #file, #function)
         
         view.backgroundColor = .white
         self.setUI()
@@ -151,13 +151,13 @@ extension SearchUserViewController: View {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .bind(onNext: { userName in
-                reactor.action.onNext(.loadMore(userName, self.datePicker.date.toString(), nil))
+                reactor.action.onNext(.resetAndSearch(userName, self.datePicker.date.toString()))
             }).disposed(by: disposeBag)
         
         datePicker.rx.value.changed.asObservable()
             .subscribe({ event in
                 guard let date = event.element else { return }
-                reactor.action.onNext(.loadMore(self.textField.text, date.toString(), nil))
+                reactor.action.onNext(.resetAndSearch(self.textField.text, date.toString()))
             }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected
@@ -174,16 +174,18 @@ extension SearchUserViewController: View {
             }).disposed(by: disposeBag)
         
         tableView.rx.contentOffset
+        // 일정 시간 동안 한 번만 방출하기 위해 throttle(~, latest: false) 사용
+            .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
             .map { $0.y }
             .subscribe(onNext: { [weak self] contentOffset in
                     guard let self = self else { return }
                     let contentBottomOffset = contentOffset + self.tableView.frame.height
                     let contentSize = self.tableView.contentSize.height
                     
-                    if contentSize * 0.2 > contentSize - contentBottomOffset && self.reactor?.isLoadingMore == false {
-                        self.reactor?.isLoadingMore = true
+                    if contentSize * 0.2 > contentSize - contentBottomOffset {
                         let numberOfCells = self.tableView.numberOfRows(inSection: 0)
-                        let nextPageNum = numberOfCells / 20 // TODO: 20 to Constant
+                        // First page number: 1
+                        let nextPageNum = numberOfCells / 20 + 1 // TODO: 20 to Constant
                         
                         self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
                     }
@@ -191,26 +193,8 @@ extension SearchUserViewController: View {
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {
-        // TODO: Reactor 이용해서 화면 업데이트하기. 현재는 사실상 사용하고 있지 않음.
-        // table view cell 구성
-//        reactor.state.map { $0.userInfo }
-//            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) {
-//                index, userInfo, cell in
-//                guard let cell = cell as? ResultCell else { return }
-//                cell.selectionStyle = .none
-//                cell.resultLabel.text = userInfo?.name
-//                cell.userInfo = userInfo
-//
-//                let numberOfCells = self.tableView.numberOfRows(inSection: 0)
-//                let nextPageNum = numberOfCells / 20
-//                if index == numberOfCells - 3 { // 뒤에서 세 번째 cell이면
-//                    print(index)
-//
-//                    self.reactor?.action.onNext(.loadMore(self.textField.text, nil, nextPageNum))
-//                }
-//            }.disposed(by: disposeBag)
         
-        reactor.results
+        reactor.state.map { $0.userInfo }
             .bind(to: tableView.rx.items) { (tableView, index, userInfo) -> ResultCell in
 
                 let cell = self.getFilledResultCell(userInfo: userInfo)

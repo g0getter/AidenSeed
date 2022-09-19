@@ -32,7 +32,7 @@ class SearchHistoryViewController: UIViewController, View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FirebaseHandler.screenLogEvent("\(self)", #file, #function)
+        FirebaseLogger.screenLogEvent("\(self)", #file, #function)
         
         view.backgroundColor = .white
         self.setUI()
