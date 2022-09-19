@@ -177,9 +177,9 @@ extension SearchUserViewController: View {
         // 일정 시간 동안 한 번만 방출하기 위해 throttle(~, latest: false) 사용
             .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
             .map { $0.y }
-            .subscribe(onNext: { [weak self] contentOffset in
+            .subscribe(onNext: { [weak self] contentTopOffset in
                     guard let self = self else { return }
-                    let contentBottomOffset = contentOffset + self.tableView.frame.height
+                    let contentBottomOffset = contentTopOffset + self.tableView.frame.height
                     let contentSize = self.tableView.contentSize.height
                     
                     if contentSize * 0.2 > contentSize - contentBottomOffset {

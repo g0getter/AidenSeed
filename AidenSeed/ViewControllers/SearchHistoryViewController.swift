@@ -54,6 +54,9 @@ class SearchHistoryViewController: UIViewController, View {
             $0.edges.equalToSuperview()
         }
         
+        // TODO: 꼭 필요한지.
+        tableView.contentSize = CGSize(width: self.view.frame.size.width, height: 500)
+        
         // Pull to refresh 구현
         tableView.refreshControl = UIRefreshControl().then {
             $0.rx.controlEvent(.valueChanged)
@@ -92,7 +95,27 @@ class SearchHistoryViewController: UIViewController, View {
                 
                 self.navigationController?.pushViewController(userInfoVC, animated: true)
             }).disposed(by: disposeBag)
+        
+        // TODO: 모든 데이터 다 받았을 때 더 이상 action 방출 않는 방법(구독 끊기?)
+        tableView.rx.contentOffset
+            .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
+            .map { $0.y }
+            .subscribe(onNext: { [weak self] contentTopOffset in
+                guard let self = self else { return }
+                let contentBottomOffset = contentTopOffset + self.tableView.frame.height
+                let contentSize = self.tableView.contentSize.height
+                
+                // TODO: 아래 수식 다시 이해
+                if contentSize - contentBottomOffset < contentSize * 0.2 {
+                    let numberOfCells = self.tableView.numberOfRows(inSection: 0)
+                    let nextIndex = numberOfCells
+                    
+                    self.reactor?.action.onNext(.loadMore(nextIndex))
+                }
+            }).disposed(by: disposeBag)
     }
+    
+    
     
     // TODO: Q: 파라미터 reactor와 self.reactor의 관계
     private func bindState(_ reactor: SearchHistoryViewReactor) {
@@ -105,7 +128,7 @@ class SearchHistoryViewController: UIViewController, View {
             }).disposed(by: disposeBag)
         
         // 🔐 TODO: bind(to:) 완벽히 이해
-        reactor.state.map{ $0.history ?? [] }
+        reactor.state.map { $0.history ?? [] }
             .bind(to: tableView.rx.items) { (tableView, index, history) -> UITableViewCell in
 
                 var cell: SearchHistoryImageCell?
