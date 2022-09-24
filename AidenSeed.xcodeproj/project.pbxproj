@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */; };
+		BB4A88D228DEBC16002362D5 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A88D128DEBC16002362D5 /* Array+Extensions.swift */; };
 		DF03365C28B7381E004EAA23 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03365B28B7381E004EAA23 /* ResultCell.swift */; };
 		DF16128B28D2FA4400A90E46 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF16128A28D2FA4400A90E46 /* RealmManager.swift */; };
 		DF60BECD28B5DCF100158998 /* flying-rocket-in-the-sky.json in Resources */ = {isa = PBXBuildFile; fileRef = DF60BECC28B5DCF100158998 /* flying-rocket-in-the-sky.json */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AidenSeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.release.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.release.xcconfig"; sourceTree = "<group>"; };
+		BB4A88D128DEBC16002362D5 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.debug.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.debug.xcconfig"; sourceTree = "<group>"; };
 		DF03365B28B7381E004EAA23 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
 		DF16128A28D2FA4400A90E46 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				DF9650C628BC70B900EF7992 /* String+Extensions.swift */,
 				DFA9E81928C04716003912E7 /* Date+Extensions.swift */,
+				BB4A88D128DEBC16002362D5 /* Array+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				DF9650C728BC70B900EF7992 /* String+Extensions.swift in Sources */,
 				DF60BEDF28B6094C00158998 /* SearchHistoryViewController.swift in Sources */,
 				DFB77C8728C17E44004826F5 /* UserInfoViewReactor.swift in Sources */,
+				BB4A88D228DEBC16002362D5 /* Array+Extensions.swift in Sources */,
 				DF60BEDD28B6094200158998 /* SearchUserViewController.swift in Sources */,
 				DFAD211C28C6C88000F06001 /* SearchHistoryViewReactor.swift in Sources */,
 				DF60BEDB28B5FEDA00158998 /* HomeViewReactor.swift in Sources */,

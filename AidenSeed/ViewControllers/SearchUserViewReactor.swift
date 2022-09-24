@@ -32,8 +32,11 @@ class SearchUserViewReactor: Reactor {
         switch action {
         case .resetAndSearch(let userName, let createdBefore):
             return Observable.concat([
-                gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: 1).map {
-                    .resetAndSearchUserNames($0)
+                gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: 1)
+                // TODO: 원하는 것 >> Array의 extension인 sortedItems를 사용해서 아래와 비슷하게'.sortedItems'로 사용
+//                    .sortedItems()
+                    .map {
+                        .resetAndSearchUserNames($0.sortedItems())
                 }
             ])
         case .loadMore(let userName, let createdBefore, let nextPage):
@@ -59,3 +62,4 @@ class SearchUserViewReactor: Reactor {
     
     var initialState: State = State()
 }
+

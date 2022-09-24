@@ -76,7 +76,6 @@ extension GitHubProvider: TargetType {
     
 }
 
-//extension GitHubProvider {
 class GitHubAPI {
     
     /// 새로운 UserInfo 배열을 반환
@@ -90,13 +89,8 @@ class GitHubAPI {
                     guard let response = try? result.map(SearchUsersResponse.self) else { return }
                     guard let items = response.items else { return }
                     
-                    var sortedItems = items
-                    sortedItems.sort { (a, b) in
-                        return a.login ?? "" < b.login ?? ""
-                    }
-                    
                     // Observable<Mutation> 리턴 대신 observer에 방출
-                    observer.onNext(sortedItems)
+                    observer.onNext(items)
                     
                 case let .failure(result):
                     print("Error occurred!:\n\(result)")
