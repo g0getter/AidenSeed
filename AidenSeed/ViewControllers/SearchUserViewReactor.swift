@@ -11,6 +11,7 @@ import RxSwift
 import Then
 import RxRelay
 import RealmSwift
+import ReactorKit
 
 class SearchUserViewReactor: Reactor {
 

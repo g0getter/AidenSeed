@@ -12,6 +12,7 @@ class SearchHistoryViewReactor: Reactor {
     enum Action {
         case refresh
         case loadMore(Int)
+        case loadMoreTest
     }
     
     enum Mutation {
@@ -42,6 +43,8 @@ class SearchHistoryViewReactor: Reactor {
             return Observable.concat([
                 .just(.loadHistoryMore(newHistory)),
             ])
+        case .loadMoreTest:
+            return Observable.concat([])
         }
     }
     
