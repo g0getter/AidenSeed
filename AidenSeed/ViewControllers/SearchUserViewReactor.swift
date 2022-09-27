@@ -43,7 +43,7 @@ class SearchUserViewReactor: Reactor {
         case .loadMore(let userName, let createdBefore, let nextPage):
             return Observable.concat([
                 gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
-                    .loadMoreUserNames($0)
+                    .loadMoreUserNames($0.sortedItems())
                 }
             ])
         }

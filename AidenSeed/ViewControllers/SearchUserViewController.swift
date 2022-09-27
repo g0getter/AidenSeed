@@ -150,15 +150,15 @@ extension SearchUserViewController: View {
     private func bindAction(_ reactor: SearchUserViewReactor) {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .bind(onNext: { userName in
-                reactor.action.onNext(.resetAndSearch(userName, self.datePicker.date.toString()))
-            }).disposed(by: disposeBag)
+            .map { .resetAndSearch($0, self.datePicker.date.toString()) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
-        datePicker.rx.value.changed.asObservable()
-            .subscribe({ event in
-                guard let date = event.element else { return }
-                reactor.action.onNext(.resetAndSearch(self.textField.text, date.toString()))
-            }).disposed(by: disposeBag)
+        datePicker.rx.value.changed
+//            .asObservable()
+            .map { .resetAndSearch(self.textField.text, $0.toString()) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
@@ -176,6 +176,7 @@ extension SearchUserViewController: View {
         tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
             // First page number: 1
             let nextPageNum = nextIndex / 20 + 1 // TODO: 20 to Constant
+            
             self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
         }
     }
