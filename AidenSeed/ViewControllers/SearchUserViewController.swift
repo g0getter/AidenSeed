@@ -150,15 +150,15 @@ extension SearchUserViewController: View {
     private func bindAction(_ reactor: SearchUserViewReactor) {
         textField.rx.text
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .bind(onNext: { userName in
-                reactor.action.onNext(.resetAndSearch(userName, self.datePicker.date.toString()))
-            }).disposed(by: disposeBag)
+            .map { .resetAndSearch($0, self.datePicker.date.toString()) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
-        datePicker.rx.value.changed.asObservable()
-            .subscribe({ event in
-                guard let date = event.element else { return }
-                reactor.action.onNext(.resetAndSearch(self.textField.text, date.toString()))
-            }).disposed(by: disposeBag)
+        datePicker.rx.value.changed
+//            .asObservable()
+            .map { .resetAndSearch(self.textField.text, $0.toString()) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
@@ -173,23 +173,12 @@ extension SearchUserViewController: View {
                 
             }).disposed(by: disposeBag)
         
-        tableView.rx.contentOffset
-        // 일정 시간 동안 한 번만 방출하기 위해 throttle(~, latest: false) 사용
-            .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
-            .map { $0.y }
-            .subscribe(onNext: { [weak self] contentTopOffset in
-                    guard let self = self else { return }
-                    let contentBottomOffset = contentTopOffset + self.tableView.frame.height
-                    let contentSize = self.tableView.contentSize.height
-                    
-                    if contentSize * 0.2 > contentSize - contentBottomOffset {
-                        let numberOfCells = self.tableView.numberOfRows(inSection: 0)
-                        // First page number: 1
-                        let nextPageNum = numberOfCells / 20 + 1 // TODO: 20 to Constant
-                        
-                        self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
-                    }
-            }).disposed(by: disposeBag)
+        tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
+            // First page number: 1
+            let nextPageNum = nextIndex / 20 + 1 // TODO: 20 to Constant
+            
+            self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+        }
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {
