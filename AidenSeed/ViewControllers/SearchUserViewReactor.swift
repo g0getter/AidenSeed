@@ -51,7 +51,7 @@ class SearchUserViewReactor: Reactor {
             ])
         case let .loadNextPage(userName, createdBefore):
             let nextIndex = self.userInfoList.count + 1
-            let nextPageNum = nextIndex / 20 + 1
+            let nextPageNum = nextIndex / UserInfoListConstant.listLength + 1
             return Observable.concat([
                 gitHubAPI.loadMoreUsers(userName,
                                         createdBefore: createdBefore,

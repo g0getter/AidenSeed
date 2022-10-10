@@ -44,3 +44,7 @@ extension UserInfo {
         return History(cellType: KeywordType.getKeywordType(userID: self.id), userInfo: self)
     }
 }
+
+struct UserInfoListConstant {
+    static let listLength = 20
+}
