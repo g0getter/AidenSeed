@@ -98,11 +98,8 @@ class SearchHistoryViewController: UIViewController, View {
         
         tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
             self.reactor?.action.onNext(.loadMore(nextIndex))
-//            self.reactor?.action.onNext(.loadMoreTest)
         }
     }
-    
-    
     
     // TODO: Q: 파라미터 reactor와 self.reactor의 관계
     private func bindState(_ reactor: SearchHistoryViewReactor) {
@@ -114,7 +111,6 @@ class SearchHistoryViewController: UIViewController, View {
                 self.tableView.refreshControl?.rx.isRefreshing.onNext(isLoading)
             }).disposed(by: disposeBag)
         
-        // 🔐 TODO: bind(to:) 완벽히 이해
         reactor.state.map { $0.history ?? [] }
             .bind(to: tableView.rx.items) { (tableView, index, history) -> UITableViewCell in
 

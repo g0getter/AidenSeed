@@ -175,7 +175,7 @@ extension SearchUserViewController: View {
         
         tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
             // First page number: 1
-            let nextPageNum = nextIndex / 20 + 1 // TODO: 20 to Constant
+            let nextPageNum = nextIndex / UserInfoListConstant.listLength + 1
             
             self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
         }
@@ -191,19 +191,6 @@ extension SearchUserViewController: View {
                 return cell
 
             }.disposed(by: disposeBag)
-        
-        // TODO: Q. 아래 방식을 이용할 수는 없는지?
-//        reactor.results
-//            .bind(to: tableView.rx.items(cellIdentifier: ResultCell.identifier)) { index, userInfo, cell in
-//                // 여기다가 cell 속성 줄줄 쓰기 싫어서
-//                guard let cell = cell as? ResultCell else { return }
-//                guard let userID = userInfo?.login else { return }
-//
-//                cell.selectionStyle = .none
-//                cell.resultLabel.text = userID // 삭제하면 안됨. 여기 대신 Cell 내부에서 UI 세팅 시 하면 안됨.
-//                cell.userInfo = userInfo
-//            }.disposed(by: disposeBag)
-            
         
     }
     
