@@ -83,7 +83,7 @@ class AidenSeedTests: XCTestCase {
         XCTAssertEqual(guess9, "9", "First digit computed from guess9 is wrong")
     }
 
-    func testKeywordTypeIsComputedWhenUserIDFirstDigitIsLessThanOrEqualWithFive() {
+    func testKeywordTypeIsComputedWhenUserIDFirstDigitIsLessThanOrEqualToFive() {
       // given
         let userID1 = 1
         let userID2 = 2
