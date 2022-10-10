@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		560FC567EE3241602FFB37B4 /* Pods_AidenSeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */; };
+		BB2B2C7328F415C700F516E9 /* AidenSeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2B2C7228F415C700F516E9 /* AidenSeedTests.swift */; };
 		BB4A88D228DEBC16002362D5 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A88D128DEBC16002362D5 /* Array+Extensions.swift */; };
 		BBBE9A7228E18A79001C8048 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBE9A7128E18A79001C8048 /* UITableView+Extensions.swift */; };
 		DF03365C28B7381E004EAA23 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03365B28B7381E004EAA23 /* ResultCell.swift */; };
@@ -45,9 +46,21 @@
 		DFD9729F28BC5580003DDBD4 /* GitHubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD9729E28BC5580003DDBD4 /* GitHubProvider.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BB2B2C7428F415C700F516E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFA2A0F828B5AF5600588C97 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFA2A0FF28B5AF5600588C97;
+			remoteInfo = AidenSeed;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3948B6267C93C277B3CEFB1F /* Pods_AidenSeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AidenSeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.release.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.release.xcconfig"; sourceTree = "<group>"; };
+		BB2B2C7028F415C700F516E9 /* AidenSeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AidenSeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB2B2C7228F415C700F516E9 /* AidenSeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AidenSeedTests.swift; sourceTree = "<group>"; };
 		BB4A88D128DEBC16002362D5 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		BBBE9A7128E18A79001C8048 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		DDF9DBABA6BC565B929EDF41 /* Pods-AidenSeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AidenSeed.debug.xcconfig"; path = "Target Support Files/Pods-AidenSeed/Pods-AidenSeed.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +99,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BB2B2C6D28F415C700F516E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DFA2A0FD28B5AF5600588C97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,6 +127,14 @@
 				8E8B2E0992B48CDAD1BFAF40 /* Pods-AidenSeed.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BB2B2C7128F415C700F516E9 /* AidenSeedTests */ = {
+			isa = PBXGroup;
+			children = (
+				BB2B2C7228F415C700F516E9 /* AidenSeedTests.swift */,
+			);
+			path = AidenSeedTests;
 			sourceTree = "<group>";
 		};
 		D5BBDE2DE3E81EBCEA296032 /* Frameworks */ = {
@@ -182,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA2A10228B5AF5600588C97 /* AidenSeed */,
+				BB2B2C7128F415C700F516E9 /* AidenSeedTests */,
 				DFA2A10128B5AF5600588C97 /* Products */,
 				621C645D07F66C453A234264 /* Pods */,
 				D5BBDE2DE3E81EBCEA296032 /* Frameworks */,
@@ -192,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				DFA2A10028B5AF5600588C97 /* AidenSeed.app */,
+				BB2B2C7028F415C700F516E9 /* AidenSeedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,6 +256,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BB2B2C6F28F415C700F516E9 /* AidenSeedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB2B2C7828F415C700F516E9 /* Build configuration list for PBXNativeTarget "AidenSeedTests" */;
+			buildPhases = (
+				BB2B2C6C28F415C700F516E9 /* Sources */,
+				BB2B2C6D28F415C700F516E9 /* Frameworks */,
+				BB2B2C6E28F415C700F516E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB2B2C7528F415C700F516E9 /* PBXTargetDependency */,
+			);
+			name = AidenSeedTests;
+			productName = AidenSeedTests;
+			productReference = BB2B2C7028F415C700F516E9 /* AidenSeedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DFA2A0FF28B5AF5600588C97 /* AidenSeed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DFA2A11428B5AF5800588C97 /* Build configuration list for PBXNativeTarget "AidenSeed" */;
@@ -260,6 +308,10 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					BB2B2C6F28F415C700F516E9 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = DFA2A0FF28B5AF5600588C97;
+					};
 					DFA2A0FF28B5AF5600588C97 = {
 						CreatedOnToolsVersion = 13.4;
 					};
@@ -283,11 +335,19 @@
 			projectRoot = "";
 			targets = (
 				DFA2A0FF28B5AF5600588C97 /* AidenSeed */,
+				BB2B2C6F28F415C700F516E9 /* AidenSeedTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BB2B2C6E28F415C700F516E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DFA2A0FE28B5AF5600588C97 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,6 +409,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BB2B2C6C28F415C700F516E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB2B2C7328F415C700F516E9 /* AidenSeedTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DFA2A0FC28B5AF5600588C97 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +449,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BB2B2C7528F415C700F516E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFA2A0FF28B5AF5600588C97 /* AidenSeed */;
+			targetProxy = BB2B2C7428F415C700F516E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		DFA2A10E28B5AF5800588C97 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -393,6 +469,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BB2B2C7628F415C700F516E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8DJU9A2RCC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nagyeong.AidenSeedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AidenSeed.app/AidenSeed";
+			};
+			name = Debug;
+		};
+		BB2B2C7728F415C700F516E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8DJU9A2RCC;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nagyeong.AidenSeedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AidenSeed.app/AidenSeed";
+			};
+			name = Release;
+		};
 		DFA2A11228B5AF5800588C97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -568,6 +680,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BB2B2C7828F415C700F516E9 /* Build configuration list for PBXNativeTarget "AidenSeedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB2B2C7628F415C700F516E9 /* Debug */,
+				BB2B2C7728F415C700F516E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DFA2A0FB28B5AF5600588C97 /* Build configuration list for PBXProject "AidenSeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
