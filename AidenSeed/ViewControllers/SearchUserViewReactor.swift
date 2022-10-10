@@ -15,9 +15,12 @@ import ReactorKit
 
 class SearchUserViewReactor: Reactor {
 
+    var userInfoList: [UserInfo] = [] // TODO: 필요한지 아닌지 결정
+    
     enum Action {
         case resetAndSearch(String?, String?)
         case loadMore(String?, String?, Int?)
+        case loadNextPage(String?, String?) // FIXME: 수정 후 사용
     }
     
     enum Mutation {
@@ -44,6 +47,18 @@ class SearchUserViewReactor: Reactor {
             return Observable.concat([
                 gitHubAPI.loadMoreUsers(userName, createdBefore: createdBefore, nextPage: nextPage).map {
                     .loadMoreUserNames($0.sortedItems())
+                }
+            ])
+        case let .loadNextPage(userName, createdBefore):
+            let nextIndex = self.userInfoList.count + 1
+            let nextPageNum = nextIndex / 20 + 1
+            return Observable.concat([
+                gitHubAPI.loadMoreUsers(userName,
+                                        createdBefore: createdBefore,
+                                        nextPage: nextPageNum)
+                .map {
+                    self.userInfoList = self.userInfoList + $0.sortedItems() // TODO: 합친 것/새로운 것
+                    return .loadMoreUserNames($0.sortedItems())
                 }
             ])
         }
