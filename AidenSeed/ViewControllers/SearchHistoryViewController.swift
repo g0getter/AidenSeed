@@ -96,9 +96,10 @@ class SearchHistoryViewController: UIViewController, View {
                 self.navigationController?.pushViewController(userInfoVC, animated: true)
             }).disposed(by: disposeBag)
         
-        tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
-            self.reactor?.action.onNext(.loadMore(nextIndex))
-        }
+        tableView.detect80Scroll()
+            .subscribe(onNext: { nextIndex in
+                self.reactor?.action.onNext(.loadMore(nextIndex))
+            }).disposed(by: disposeBag)
     }
     
     // TODO: Q: 파라미터 reactor와 self.reactor의 관계
