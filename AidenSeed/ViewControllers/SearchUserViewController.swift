@@ -173,12 +173,39 @@ extension SearchUserViewController: View {
                 
             }).disposed(by: disposeBag)
         
-        tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
-            // First page number: 1
-            let nextPageNum = nextIndex / UserInfoListConstant.listLength + 1
-            
-            self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
-        }
+//        tableView.detect80Scroll(disposeBag: disposeBag) { nextIndex in
+//            // First page number: 1
+//            let nextPageNum = nextIndex / UserInfoListConstant.listLength + 1
+//
+//            self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+//        }
+        
+//        tableView.detect80Scroll()
+//            .subscribe(onNext: { nextIndex in
+//                let nextPageNum = nextIndex / UserInfoListConstant.listLength + 1
+//                //
+//                self.reactor?.action.onNext(.loadMore(self.textField.text, self.datePicker.date.toString(), nextPageNum))
+//            }).disposed(by: disposeBag)
+        
+        // Q. 매번 방출하는 것이 아니니까 .map{}.bind(to: reactor.action)이 불가능하고 .bind(onNext:)로만 가능한 게 맞는지?
+        tableView.detect80ScrollItself()
+            .debug("TEST MSG")
+            .bind(onNext: { isDetected in
+                if isDetected {
+                    reactor.action.onNext(.loadNextPage(self.textField.text,
+                                         self.datePicker.date.toString()))
+                }
+            }).disposed(by: disposeBag)
+        
+        
+//            .map { isDetected in
+//                if isDetected {
+//                    return .loadNextPage(self.textField.text,
+//                                         self.datePicker.date.toString())
+//                }
+//            }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
     }
     
     private func bindState(_ reactor: SearchUserViewReactor) {

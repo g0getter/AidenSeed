@@ -9,25 +9,42 @@ import UIKit
 import RxSwift
 
 extension UITableView {
-    func detect80Scroll(disposeBag: DisposeBag, closure: @escaping((Int) -> ())) {
+    
+    func detect80ScrollItself() -> Observable<Bool> {
+        self.rx.contentOffset
+            .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
+            .map { $0.y }
+            .map { contentTopOffset in
+                let contentBottomOffset = contentTopOffset + self.frame.height
+                let contentSize = self.contentSize.height
+                
+                // 등호를 넣어야 가장 처음(contentSize가 0)에도 true가 리턴됨.
+                if contentSize - contentBottomOffset <= contentSize * 0.2 {
+                    return true
+                }
+                return false
+            }
+    }
+    
+    // TODO: 삭제
+    func detect80Scroll() -> Observable<Int> {
         
         self.rx.contentOffset
             .throttle(.milliseconds(500), latest: false, scheduler: MainScheduler.instance)
             .map { $0.y }
-            .subscribe(onNext: { [weak self] contentTopOffset in
-                guard let self = self else { return }
+            .map { contentTopOffset in
                 let contentBottomOffset = contentTopOffset + self.frame.height
                 let contentSize = self.contentSize.height
 
-                // TODO: 아래 수식 다시 이해
                 if contentSize - contentBottomOffset < contentSize * 0.2 {
                     let numberOfCells = self.numberOfRows(inSection: 0)
                     let nextIndex = numberOfCells
 
                     // TODO: 다음 페이지 로드하라는 신호 보내기
-                    closure(nextIndex)
+                    return nextIndex
                 }
-            }).disposed(by: disposeBag)
+                return 0
+            }
         
     }
 }
